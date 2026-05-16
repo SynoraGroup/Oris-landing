@@ -5,80 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oris Group — Contemporary Facade & Engineering Systems</title>
   <meta name="description" content="Technical installation, facade systems and disciplined execution for modern architectural and industrial projects.">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
   <style>
-    /* =====================
-       TOKENS
-    ===================== */
     :root {
-      --bg:          #080808;
-      --bg-alt:      #0d0d0d;
-      --s1:          #111111;
-      --s2:          #161616;
-      --s3:          #1c1c1c;
-      --concrete:    #242424;
-      --border:      rgba(255,255,255,0.07);
-      --border-dim:  rgba(255,255,255,0.04);
+      --bg:       #f4f2ec;
+      --bg-b:     #edeae3;
+      --bg-c:     #e8e5dd;
+      --bg-hero:  #ece8df;
 
-      --text-0:      #eaeae6;
-      --text-1:      #a0a09c;
-      --text-2:      #5c5c5a;
+      --border:   rgba(26,26,23,0.09);
+      --grid:     rgba(26,26,23,0.035);
 
-      --bronze:      #b07858;
-      --bronze-mid:  rgba(176,120,88,0.25);
-      --bronze-dim:  rgba(176,120,88,0.08);
+      --t0:  #1a1a17;
+      --t1:  #4a4844;
+      --t2:  #8a8780;
 
-      --grid:        rgba(255,255,255,0.022);
-      --nav-h:       72px;
+      --br:  #9e6b47;
+      --br2: rgba(158,107,71,0.18);
+      --br3: rgba(158,107,71,0.08);
 
+      --nav-h: 72px;
       --f0: 'Space Grotesk', sans-serif;
       --f1: 'Inter', sans-serif;
     }
 
-    /* =====================
-       RESET
-    ===================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       background: var(--bg);
-      color: var(--text-0);
+      color: var(--t0);
       font-family: var(--f0);
-      line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* grain overlay */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      opacity: 0.028;
-      pointer-events: none;
-      z-index: 9999;
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      opacity: 0.04; pointer-events: none; z-index: 9999;
     }
 
-    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar { width: 2px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--s3); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
 
-    /* =====================
-       UTILITY
-    ===================== */
-    .grid-lines {
-      position: absolute;
-      inset: 0;
+    /* ── LAYOUT ── */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 52px; }
+
+    .sec-label {
+      display: flex; align-items: center; gap: 20px;
+      margin-bottom: 72px;
+    }
+    .sec-idx {
+      font-family: var(--f1); font-size: 10px; font-weight: 400;
+      letter-spacing: 0.26em; color: var(--br); flex-shrink: 0;
+    }
+    .sec-title {
+      font-family: var(--f0); font-size: clamp(20px,2.2vw,28px);
+      font-weight: 300; letter-spacing: -0.01em; color: var(--t0);
+    }
+    .sec-rule { flex: 1; height: 1px; background: var(--border); margin-left: 16px; }
+
+    .section { border-top: 1px solid var(--border); overflow: hidden; position: relative; }
+
+    /* ── HEADER ── */
+    #hdr {
+      position: fixed; inset: 0 0 auto 0; height: var(--nav-h);
+      z-index: 100; display: flex; align-items: center; padding: 0 52px;
+      transition: background 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    #hdr.stuck {
+      background: rgba(244,242,236,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+    .nav-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    .logo {
+      font-family: var(--f0); font-size: 13px; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--t0);
+      text-decoration: none; display: flex; align-items: center; gap: 5px;
+    }
+    .logo-dot {
+      display: inline-block; width: 3px; height: 3px;
+      background: var(--br); border-radius: 50%; margin-bottom: 1px;
+    }
+
+    nav.main-nav { display: flex; align-items: center; gap: 36px; }
+    .main-nav a {
+      font-family: var(--f1); font-size: 10.5px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--t2); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .main-nav a:hover { color: var(--t0); }
+
+    .lang { display: flex; align-items: center; gap: 6px; font-family: var(--f1); font-size: 10px; letter-spacing: 0.14em; }
+    .lang span { color: var(--t2); cursor: pointer; transition: color 0.2s; }
+    .lang span.on { color: var(--t0); }
+    .lang-sep { color: var(--border); cursor: default; user-select: none; }
+
+    /* ── HERO ── */
+    #hero {
+      background: var(--bg-hero);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
       background-image:
         linear-gradient(var(--grid) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid) 1px, transparent 1px);
@@ -86,880 +127,308 @@
       pointer-events: none;
     }
 
-    .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 52px;
-    }
-
-    .sec-label {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 72px;
-    }
-
-    .sec-idx {
-      font-family: var(--f1);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      color: var(--bronze);
-      flex-shrink: 0;
-    }
-
-    .sec-title {
-      font-family: var(--f0);
-      font-size: clamp(24px, 2.6vw, 34px);
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      color: var(--text-0);
-    }
-
-    .sec-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      margin-left: 16px;
-    }
-
-    /* =====================
-       CORNER MARKS
-    ===================== */
-    .cm { position: absolute; width: 14px; height: 14px; }
-    .cm.tl { top: 0; left: 0; border-top: 1.5px solid var(--bronze); border-left: 1.5px solid var(--bronze); }
-    .cm.tr { top: 0; right: 0; border-top: 1.5px solid var(--bronze); border-right: 1.5px solid var(--bronze); }
-    .cm.bl { bottom: 0; left: 0; border-bottom: 1.5px solid var(--bronze); border-left: 1.5px solid var(--bronze); }
-    .cm.br { bottom: 0; right: 0; border-bottom: 1.5px solid var(--bronze); border-right: 1.5px solid var(--bronze); }
-
-    /* =====================
-       HEADER
-    ===================== */
-    #hdr {
-      position: fixed;
-      inset: 0 0 auto 0;
-      height: var(--nav-h);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      padding: 0 52px;
-      transition: background 0.5s, border-color 0.5s;
-      border-bottom: 1px solid transparent;
-    }
-
-    #hdr.stuck {
-      background: rgba(8,8,8,0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-color: var(--border);
-    }
-
-    .nav-row {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: var(--f0);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-0);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .logo-dot {
-      display: inline-block;
-      width: 4px;
-      height: 4px;
-      background: var(--bronze);
-      border-radius: 50%;
-      margin-bottom: 1px;
-    }
-
-    nav.main-nav {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    }
-
-    .main-nav a {
-      font-family: var(--f1);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-2);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .main-nav a:hover { color: var(--text-0); }
-
-    .lang {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--f1);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-    }
-
-    .lang span {
-      color: var(--text-2);
-      cursor: pointer;
-      transition: color 0.2s;
-      padding: 2px 0;
-    }
-
-    .lang span.on { color: var(--text-0); }
-
-    .lang-sep {
-      color: var(--border);
-      cursor: default;
-      user-select: none;
-    }
-
-    /* =====================
-       HERO
-    ===================== */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 100px 100px;
-    }
-
-    .hero-vignette {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 280px;
-      background: linear-gradient(to bottom, transparent, var(--bg));
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .hero-visual {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 48%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-      opacity: 0;
-      animation: hv-in 1.2s ease 0.6s forwards;
-    }
-
-    @keyframes hv-in {
-      from { opacity: 0; transform: translateX(24px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .hv-outer {
-      position: relative;
-      width: 380px;
-      height: 460px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .hv-inner {
-      position: absolute;
-      inset: 44px 44px 44px 44px;
-      border: 1px solid rgba(176,120,88,0.12);
-    }
-
-    .hv-joint {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .hv-joint-v {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .hv-ch-h, .hv-ch-v {
-      position: absolute;
-      background: rgba(176,120,88,0.3);
-    }
-
-    .hv-ch-h {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      width: 20px;
-      height: 1px;
-    }
-
-    .hv-ch-v {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      width: 1px;
-      height: 20px;
-    }
-
-    .hv-accent-box {
-      position: absolute;
-      width: 340px;
-      height: 420px;
-      top: 52px;
-      left: 52px;
-      border: 1px solid rgba(176,120,88,0.06);
-      pointer-events: none;
-    }
-
-    .hv-anno {
-      position: absolute;
-      font-family: var(--f1);
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      color: rgba(176,120,88,0.4);
-    }
-
-    .hv-anno.a1 { bottom: -20px; right: 0; }
-    .hv-anno.a2 { top: -20px; left: 0; }
-    .hv-anno.a3 { top: 50%; right: -52px; transform: translateY(-50%) rotate(90deg); }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      padding: 0 52px;
-      padding-top: calc(var(--nav-h) + 24px);
-      max-width: 1200px;
-      margin: 0 auto;
+    .hero-left {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: calc(var(--nav-h) + 48px) 52px 80px;
     }
 
     .hero-eyebrow {
-      font-family: var(--f1);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--bronze);
-      margin-bottom: 36px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      opacity: 0;
-      animation: rise 0.9s ease 0.15s forwards;
+      font-family: var(--f1); font-size: 9.5px; font-weight: 400;
+      letter-spacing: 0.30em; text-transform: uppercase; color: var(--br);
+      margin-bottom: 40px; display: flex; align-items: center; gap: 16px;
+      opacity: 0; animation: rise 0.9s ease 0.15s forwards;
     }
-
     .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 1px;
-      background: var(--bronze);
-      flex-shrink: 0;
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--br); flex-shrink: 0;
     }
 
     .hero-h1 {
       font-family: var(--f0);
-      font-size: clamp(44px, 6.4vw, 92px);
-      font-weight: 300;
-      line-height: 1.02;
-      letter-spacing: -0.025em;
-      color: var(--text-0);
-      max-width: 660px;
-      margin-bottom: 36px;
-      opacity: 0;
-      animation: rise 0.9s ease 0.3s forwards;
+      font-size: clamp(40px, 5.2vw, 76px);
+      font-weight: 300; line-height: 1.04;
+      letter-spacing: -0.025em; color: var(--t0);
+      margin-bottom: 32px;
+      opacity: 0; animation: rise 0.9s ease 0.28s forwards;
     }
-
-    .hero-h1 em {
-      font-style: normal;
-      color: var(--text-1);
-    }
+    .hero-h1 em { font-style: normal; color: var(--t2); }
 
     .hero-sub {
-      font-family: var(--f1);
-      font-size: clamp(13px, 1.4vw, 16px);
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--text-1);
-      max-width: 480px;
-      margin-bottom: 56px;
-      opacity: 0;
-      animation: rise 0.9s ease 0.48s forwards;
+      font-family: var(--f1); font-size: clamp(13px,1.3vw,15px);
+      font-weight: 300; line-height: 1.82; color: var(--t1);
+      max-width: 400px; margin-bottom: 52px;
+      opacity: 0; animation: rise 0.9s ease 0.44s forwards;
     }
 
     .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      opacity: 0;
-      animation: rise 0.9s ease 0.64s forwards;
+      display: flex; align-items: center; gap: 28px;
+      opacity: 0; animation: rise 0.9s ease 0.58s forwards;
     }
-
     .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 13px 26px;
-      border: 1px solid var(--bronze);
-      background: transparent;
-      color: var(--text-0);
-      font-family: var(--f1);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.25s;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 24px; border: 1px solid var(--br2);
+      background: transparent; color: var(--t0);
+      font-family: var(--f1); font-size: 10.5px; font-weight: 400;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.25s, border-color 0.25s;
     }
-
-    .cta-btn:hover { background: var(--bronze-dim); }
-
-    .cta-btn .arr {
-      transition: transform 0.2s;
-      font-size: 15px;
-    }
-
+    .cta-btn:hover { background: var(--br3); border-color: var(--br); }
+    .cta-btn .arr { transition: transform 0.2s; }
     .cta-btn:hover .arr { transform: translateX(4px); }
 
     .cta-link {
-      font-family: var(--f1);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-2);
-      text-decoration: none;
+      font-family: var(--f1); font-size: 10.5px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--t2); text-decoration: none;
       transition: color 0.2s;
     }
-
-    .cta-link:hover { color: var(--text-0); }
+    .cta-link:hover { color: var(--t0); }
 
     .hero-scroll {
-      position: absolute;
-      bottom: 44px;
-      left: 52px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--f1);
-      font-size: 9px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--text-2);
-      z-index: 4;
-      opacity: 0;
-      animation: rise 0.9s ease 1.1s forwards;
+      position: absolute; bottom: 40px; left: 52px;
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--f1); font-size: 9px; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--t2); z-index: 4;
+      opacity: 0; animation: rise 0.9s ease 1.1s forwards;
     }
-
     .scroll-bar {
-      width: 1px;
-      height: 44px;
-      background: linear-gradient(to bottom, var(--bronze), transparent);
-      animation: pulse-bar 2.2s ease-in-out infinite;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--br), transparent);
     }
 
-    @keyframes pulse-bar {
-      0%,100% { opacity: 0.5; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.15); }
+    /* hero right — SVG elevation drawing */
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--nav-h) 40px 80px 0;
+      opacity: 0; animation: hv-in 1.3s ease 0.5s forwards;
+    }
+    @keyframes hv-in {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
 
-    /* =====================
-       COMMON SECTION
-    ===================== */
-    .section {
-      position: relative;
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-    }
+    .elev-svg { width: 100%; max-width: 520px; height: auto; }
 
-    /* =====================
-       ABOUT
-    ===================== */
-    #about {
-      padding: 136px 0;
-      background: var(--s1);
-    }
-
-    .about-cols {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 88px;
-    }
+    /* ── ABOUT ── */
+    #about { padding: 128px 0; background: var(--bg); }
+    .about-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 
     .about-statement {
-      font-family: var(--f0);
-      font-size: clamp(18px, 2.1vw, 24px);
-      font-weight: 300;
-      line-height: 1.55;
-      letter-spacing: -0.01em;
-      color: var(--text-0);
-      margin-bottom: 36px;
+      font-family: var(--f0); font-size: clamp(16px,1.9vw,21px);
+      font-weight: 300; line-height: 1.6; letter-spacing: -0.01em;
+      color: var(--t0); margin-bottom: 28px;
     }
-
-    .about-statement strong {
-      font-weight: 500;
-    }
-
+    .about-statement strong { font-weight: 500; }
     .about-body {
-      font-family: var(--f1);
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 1.85;
-      color: var(--text-1);
+      font-family: var(--f1); font-size: 13.5px; font-weight: 300;
+      line-height: 1.9; color: var(--t1);
     }
 
-    .about-attrs {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .attr {
-      padding: 28px 0;
-      border-top: 1px solid var(--border);
-    }
-
+    .about-right {}
+    .about-attrs { display: flex; flex-direction: column; margin-top: 0; }
+    .attr { padding: 24px 0; border-top: 1px solid var(--border); }
     .attr:last-child { border-bottom: 1px solid var(--border); }
-
     .attr-tag {
-      font-family: var(--f1);
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--bronze);
-      margin-bottom: 10px;
+      font-family: var(--f1); font-size: 9px; font-weight: 400;
+      letter-spacing: 0.26em; text-transform: uppercase; color: var(--br); margin-bottom: 8px;
     }
-
     .attr-body {
-      font-family: var(--f1);
-      font-size: 13px;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--text-1);
+      font-family: var(--f1); font-size: 13px; font-weight: 300; line-height: 1.8; color: var(--t1);
     }
 
-    /* =====================
-       SERVICES
-    ===================== */
-    #services {
-      padding: 136px 0;
-      background: var(--bg);
+    /* facade section diagram below about attributes */
+    .section-diagram {
+      margin-top: 40px; width: 100%;
     }
 
+    /* ── SERVICES ── */
+    #services { padding: 128px 0; background: var(--bg-b); }
     .svc-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
     }
-
     .svc {
-      background: var(--bg);
-      padding: 44px 36px 36px;
-      position: relative;
-      transition: background 0.3s;
-      overflow: hidden;
+      background: var(--bg-b); padding: 40px 32px 36px;
+      position: relative; transition: background 0.3s; overflow: hidden;
     }
-
-    .svc:hover { background: var(--s2); }
-
-    .svc-bg-num {
-      position: absolute;
-      bottom: -8px;
-      right: 24px;
-      font-family: var(--f0);
-      font-size: 88px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.025);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      transition: color 0.3s;
-    }
-
-    .svc:hover .svc-bg-num { color: rgba(176,120,88,0.05); }
-
+    .svc:hover { background: var(--bg-c); }
+    .svc-icon { margin-bottom: 24px; }
     .svc-num {
-      font-family: var(--f1);
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      color: var(--text-2);
-      margin-bottom: 28px;
+      font-family: var(--f1); font-size: 9px; letter-spacing: 0.24em;
+      color: var(--t2); margin-bottom: 14px;
     }
-
     .svc-name {
-      font-family: var(--f0);
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text-0);
-      margin-bottom: 14px;
-      letter-spacing: -0.01em;
+      font-family: var(--f0); font-size: 15px; font-weight: 400;
+      color: var(--t0); margin-bottom: 11px; letter-spacing: -0.01em;
     }
-
     .svc-desc {
-      font-family: var(--f1);
-      font-size: 12.5px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--text-2);
+      font-family: var(--f1); font-size: 12.5px; font-weight: 300;
+      line-height: 1.75; color: var(--t2);
     }
-
     .svc-mark {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: var(--bronze);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.35s ease;
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px;
+      background: var(--br); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.38s ease;
     }
-
     .svc:hover .svc-mark { transform: scaleX(1); }
 
-    /* =====================
-       EXECUTION
-    ===================== */
-    #execution {
-      padding: 136px 0;
-      background: var(--s1);
+    /* ── EXECUTION ── */
+    #execution { padding: 0 0 128px; background: var(--bg); }
+
+    .exec-visual-band {
+      width: 100%; border-bottom: 1px solid var(--border);
+      padding: 64px 0; overflow: hidden; margin-bottom: 80px;
+    }
+    .exec-band-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 52px;
     }
 
-    .exec-intro {
-      max-width: 620px;
-      margin-bottom: 72px;
-    }
-
+    .exec-intro { max-width: 580px; margin-bottom: 56px; }
     .exec-intro p {
-      font-family: var(--f1);
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.85;
-      color: var(--text-1);
+      font-family: var(--f1); font-size: 14.5px; font-weight: 300;
+      line-height: 1.9; color: var(--t1);
     }
-
     .exec-areas {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 72px;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      margin-bottom: 56px;
     }
-
     .exec-area {
-      background: var(--s1);
-      padding: 44px 44px;
-      display: flex;
-      gap: 20px;
-      transition: background 0.3s;
+      background: var(--bg); padding: 40px 40px;
+      display: flex; gap: 20px; transition: background 0.3s;
     }
-
-    .exec-area:hover { background: var(--s2); }
-
+    .exec-area:hover { background: var(--bg-b); }
     .exec-bar {
-      width: 1.5px;
-      background: var(--bronze);
-      opacity: 0.45;
-      flex-shrink: 0;
-      min-height: 56px;
-      align-self: stretch;
+      width: 1.5px; background: var(--br); opacity: 0.38;
+      flex-shrink: 0; min-height: 48px; align-self: stretch;
     }
-
     .exec-area-title {
-      font-family: var(--f0);
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-0);
-      margin-bottom: 10px;
+      font-family: var(--f0); font-size: 14.5px; font-weight: 500;
+      color: var(--t0); margin-bottom: 9px;
     }
-
     .exec-area-desc {
-      font-family: var(--f1);
-      font-size: 12.5px;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--text-1);
+      font-family: var(--f1); font-size: 12.5px; font-weight: 300;
+      line-height: 1.8; color: var(--t1);
     }
-
     .exec-closing {
-      border-left: 1.5px solid var(--bronze);
-      padding-left: 28px;
-      max-width: 600px;
+      border-left: 1.5px solid var(--br2); padding-left: 28px; max-width: 560px;
     }
-
     .exec-closing p {
-      font-family: var(--f0);
-      font-size: clamp(15px, 1.8vw, 20px);
-      font-weight: 300;
-      line-height: 1.6;
-      letter-spacing: -0.01em;
-      color: var(--text-0);
+      font-family: var(--f0); font-size: clamp(14px,1.6vw,18px);
+      font-weight: 300; line-height: 1.65; letter-spacing: -0.01em; color: var(--t0);
     }
 
-    /* =====================
-       APPROACH
-    ===================== */
-    #approach {
-      padding: 136px 0;
-      background: var(--bg);
-    }
-
+    /* ── APPROACH ── */
+    #approach { padding: 128px 0; background: var(--bg-b); }
     .principles {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 72px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      margin-bottom: 64px;
     }
-
     .principle {
-      background: var(--bg);
-      padding: 40px 32px;
-      transition: background 0.3s;
+      background: var(--bg-b); padding: 36px 28px; transition: background 0.3s;
     }
+    .principle:hover { background: var(--bg-c); }
+    .pr-num { font-family: var(--f1); font-size: 9px; letter-spacing: 0.26em; color: var(--br); margin-bottom: 16px; }
+    .pr-title { font-family: var(--f0); font-size: 15px; font-weight: 400; color: var(--t0); margin-bottom: 10px; }
+    .pr-desc { font-family: var(--f1); font-size: 12.5px; font-weight: 300; line-height: 1.8; color: var(--t1); }
 
-    .principle:hover { background: var(--s2); }
-
-    .pr-num {
-      font-family: var(--f1);
-      font-size: 9px;
-      letter-spacing: 0.24em;
-      color: var(--bronze);
-      margin-bottom: 20px;
-    }
-
-    .pr-title {
-      font-family: var(--f0);
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text-0);
-      margin-bottom: 12px;
-    }
-
-    .pr-desc {
-      font-family: var(--f1);
-      font-size: 12.5px;
-      font-weight: 300;
-      line-height: 1.75;
-      color: var(--text-1);
+    /* material/facade pattern band */
+    .material-band {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0; margin-bottom: 64px;
+      overflow: hidden;
     }
 
     .approach-pull {
-      max-width: 760px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 64px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      max-width: 700px; margin: 0 auto; text-align: center; padding: 0 24px;
     }
-
     .approach-pull p {
-      font-family: var(--f0);
-      font-size: clamp(16px, 2.2vw, 26px);
-      font-weight: 300;
-      line-height: 1.55;
-      letter-spacing: -0.01em;
-      color: var(--text-0);
+      font-family: var(--f0); font-size: clamp(15px,1.9vw,22px);
+      font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; color: var(--t0);
     }
-
     .pull-mark {
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--bronze);
-      margin: 28px auto 0;
+      display: block; width: 28px; height: 1.5px;
+      background: var(--br); margin: 24px auto 0;
     }
 
-    /* =====================
-       CONTACT & FOOTER
-    ===================== */
-    #contact {
-      padding: 112px 0 72px;
-      background: var(--s1);
-    }
-
+    /* ── CONTACT & FOOTER ── */
+    #contact { padding: 104px 0 68px; background: var(--bg); }
     .contact-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      margin-bottom: 88px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 72px;
     }
-
     .contact-heading {
-      font-family: var(--f0);
-      font-size: clamp(26px, 3.5vw, 44px);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: var(--text-0);
-      margin-bottom: 24px;
+      font-family: var(--f0); font-size: clamp(22px,3vw,38px); font-weight: 300;
+      letter-spacing: -0.02em; line-height: 1.15; color: var(--t0); margin-bottom: 20px;
     }
-
     .contact-body {
-      font-family: var(--f1);
-      font-size: 13.5px;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--text-1);
-      max-width: 380px;
+      font-family: var(--f1); font-size: 13.5px; font-weight: 300;
+      line-height: 1.85; color: var(--t1); max-width: 360px;
     }
-
-    .contact-right {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
+    .contact-right { display: flex; flex-direction: column; justify-content: flex-end; }
     .c-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
     }
-
     .c-label {
-      font-family: var(--f1);
-      font-size: 9px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--text-2);
+      font-family: var(--f1); font-size: 9px; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--t2);
     }
-
     .c-val {
-      font-family: var(--f1);
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--text-1);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-family: var(--f1); font-size: 13px; font-weight: 300;
+      color: var(--t1); text-decoration: none; transition: color 0.2s;
     }
+    .c-val:hover { color: var(--t0); }
 
-    .c-val:hover { color: var(--text-0); }
-
-    .footer-rule {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 40px;
-    }
-
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    .footer-rule { height: 1px; background: var(--border); margin-bottom: 32px; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; }
     .footer-logo {
-      font-family: var(--f0);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-2);
+      font-family: var(--f0); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--t2);
     }
+    .footer-right { display: flex; align-items: center; gap: 40px; }
+    .footer-copy { font-family: var(--f1); font-size: 10px; letter-spacing: 0.06em; color: var(--t2); }
+    .footer-tag { font-family: var(--f1); font-size: 10px; letter-spacing: 0.10em; color: var(--t2); }
+    .footer-tag span { color: var(--br); }
 
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .footer-copy {
-      font-family: var(--f1);
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      color: var(--text-2);
-    }
-
-    .footer-tag {
-      font-family: var(--f1);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      color: var(--text-2);
-    }
-
-    .footer-tag span { color: var(--bronze); }
-
-    /* =====================
-       ANIMATIONS
-    ===================== */
+    /* ── ANIMATIONS ── */
     @keyframes rise {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    .rev {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
-    }
-
-    .rev.in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .rev { opacity: 0; transform: translateY(22px); transition: opacity 0.72s ease, transform 0.72s ease; }
+    .rev.in { opacity: 1; transform: translateY(0); }
     .rev.d1 { transition-delay: 0.08s; }
     .rev.d2 { transition-delay: 0.16s; }
     .rev.d3 { transition-delay: 0.24s; }
     .rev.d4 { transition-delay: 0.32s; }
 
-    /* =====================
-       RESPONSIVE
-    ===================== */
+    /* ── RESPONSIVE ── */
     @media (max-width: 1060px) {
-      .about-cols   { grid-template-columns: 1fr; gap: 52px; }
-      .svc-grid     { grid-template-columns: repeat(2, 1fr); }
-      .principles   { grid-template-columns: repeat(2, 1fr); }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .about-cols { grid-template-columns: 1fr; gap: 52px; }
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .principles { grid-template-columns: repeat(2, 1fr); }
       .contact-cols { grid-template-columns: 1fr; gap: 48px; }
-      .hero-visual  { display: none; }
     }
-
     @media (max-width: 768px) {
       #hdr { padding: 0 24px; }
       .main-nav { display: none; }
       .wrap { padding: 0 24px; }
-      .hero-content { padding: 0 24px; padding-top: calc(var(--nav-h) + 24px); }
-      .hero-scroll  { left: 24px; }
+      .hero-left { padding: calc(var(--nav-h) + 32px) 24px 80px; }
+      .hero-scroll { left: 24px; }
       #about, #services, #execution, #approach, #contact { padding: 80px 0; }
-      .svc-grid     { grid-template-columns: 1fr; }
-      .exec-areas   { grid-template-columns: 1fr; }
-      .principles   { grid-template-columns: 1fr; }
+      #execution { padding: 0 0 80px; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .exec-areas { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 480px) {
-      .footer-bottom  { flex-direction: column; gap: 16px; text-align: center; }
-      .footer-right   { flex-direction: column; gap: 8px; }
+      .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
@@ -968,9 +437,7 @@
   <!-- HEADER -->
   <header id="hdr">
     <div class="nav-row">
-      <a href="#" class="logo">
-        ORIS<span class="logo-dot"></span>GROUP
-      </a>
+      <a href="#" class="logo">ORIS<span class="logo-dot"></span>GROUP</a>
       <nav class="main-nav">
         <a href="#about">Identity</a>
         <a href="#services">Services</a>
@@ -990,32 +457,7 @@
   <section id="hero">
     <div class="hero-grid"></div>
 
-    <div class="hero-visual">
-      <div style="position:relative;">
-        <div class="hv-accent-box"></div>
-        <div class="hv-outer">
-          <div class="cm tl"></div>
-          <div class="cm tr"></div>
-          <div class="cm bl"></div>
-          <div class="cm br"></div>
-          <div class="hv-inner">
-            <div class="hv-joint" style="top:22%;"></div>
-            <div class="hv-joint" style="top:44%;"></div>
-            <div class="hv-joint" style="top:66%;"></div>
-            <div class="hv-joint-v" style="left:50%;"></div>
-            <div class="hv-ch-h"></div>
-            <div class="hv-ch-v"></div>
-          </div>
-          <div class="hv-anno a1">+3.120 m</div>
-          <div class="hv-anno a2">EL. +0.000</div>
-          <div class="hv-anno a3">SECTION A–A</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-vignette"></div>
-
-    <div class="hero-content">
+    <div class="hero-left">
       <div class="hero-eyebrow">Oris Group — Engineering &amp; Facade</div>
       <h1 class="hero-h1">
         Contemporary<br>
@@ -1031,10 +473,125 @@
       </div>
     </div>
 
-    <div class="hero-scroll">
-      <div class="scroll-bar"></div>
-      Scroll
+    <!-- Facade elevation drawing -->
+    <div class="hero-right">
+      <svg class="elev-svg" viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <marker id="da" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
+            <path d="M0,0.5 L4.5,2.5 L0,4.5 Z" fill="rgba(158,107,71,0.55)"/>
+          </marker>
+          <marker id="db" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto-start-reverse">
+            <path d="M0,0.5 L4.5,2.5 L0,4.5 Z" fill="rgba(158,107,71,0.55)"/>
+          </marker>
+        </defs>
+
+        <!-- outer border / building envelope -->
+        <rect x="72" y="28" width="360" height="432" fill="rgba(26,26,23,0.018)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+
+        <!-- subtle panel faces — 4 cols × 6 floors -->
+        <!-- col widths: 72→162→252→342→432 (90px each) -->
+        <!-- row heights: 28→100→172→244→316→388→460 (72px each) -->
+
+        <!-- panel fills — alternating very slightly -->
+        <rect x="73" y="29"  width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+        <rect x="163" y="29"  width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="253" y="29"  width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+        <rect x="343" y="29"  width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="73" y="101" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="163" y="101" width="88" height="71" fill="rgba(26,26,23,0.024)"/>
+        <rect x="253" y="101" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="343" y="101" width="88" height="71" fill="rgba(26,26,23,0.024)"/>
+        <rect x="73" y="173" width="88" height="71" fill="rgba(26,26,23,0.026)"/>
+        <rect x="163" y="173" width="88" height="71" fill="rgba(26,26,23,0.016)"/>
+        <rect x="253" y="173" width="88" height="71" fill="rgba(26,26,23,0.026)"/>
+        <rect x="343" y="173" width="88" height="71" fill="rgba(26,26,23,0.016)"/>
+        <rect x="73" y="245" width="88" height="71" fill="rgba(26,26,23,0.016)"/>
+        <rect x="163" y="245" width="88" height="71" fill="rgba(26,26,23,0.028)"/>
+        <rect x="253" y="245" width="88" height="71" fill="rgba(26,26,23,0.016)"/>
+        <rect x="343" y="245" width="88" height="71" fill="rgba(26,26,23,0.028)"/>
+        <rect x="73" y="317" width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+        <rect x="163" y="317" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="253" y="317" width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+        <rect x="343" y="317" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="73" y="389" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="163" y="389" width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+        <rect x="253" y="389" width="88" height="71" fill="rgba(26,26,23,0.014)"/>
+        <rect x="343" y="389" width="88" height="71" fill="rgba(26,26,23,0.022)"/>
+
+        <!-- vertical mullion lines -->
+        <line x1="162" y1="28" x2="162" y2="460" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="252" y1="28" x2="252" y2="460" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="342" y1="28" x2="342" y2="460" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+
+        <!-- horizontal floor/spandrel lines -->
+        <line x1="72" y1="100" x2="432" y2="100" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="72" y1="172" x2="432" y2="172" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="72" y1="244" x2="432" y2="244" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="72" y1="316" x2="432" y2="316" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+        <line x1="72" y1="388" x2="432" y2="388" stroke="rgba(26,26,23,0.13)" stroke-width="1"/>
+
+        <!-- dimension line LEFT — storey height -->
+        <line x1="48" y1="28" x2="48" y2="460" stroke="rgba(158,107,71,0.3)" stroke-width="0.75" stroke-dasharray="3,3"/>
+        <!-- tick marks at each floor -->
+        <line x1="44" y1="28"  x2="52" y2="28"  stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="100" x2="52" y2="100" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="172" x2="52" y2="172" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="244" x2="52" y2="244" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="316" x2="52" y2="316" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="388" x2="52" y2="388" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+        <line x1="44" y1="460" x2="52" y2="460" stroke="rgba(158,107,71,0.5)" stroke-width="0.75"/>
+
+        <!-- level labels — left of dim line -->
+        <text x="38" y="32"  font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+18.00</text>
+        <text x="38" y="104" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+15.00</text>
+        <text x="38" y="176" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+12.00</text>
+        <text x="38" y="248" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+09.00</text>
+        <text x="38" y="320" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+06.00</text>
+        <text x="38" y="392" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">+03.00</text>
+        <text x="38" y="464" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" text-anchor="end" letter-spacing="0.5">±0.000</text>
+
+        <!-- grid ref letters along top -->
+        <text x="117" y="18" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.3)" text-anchor="middle" letter-spacing="1">A</text>
+        <text x="207" y="18" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.3)" text-anchor="middle" letter-spacing="1">B</text>
+        <text x="297" y="18" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.3)" text-anchor="middle" letter-spacing="1">C</text>
+        <text x="387" y="18" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.3)" text-anchor="middle" letter-spacing="1">D</text>
+
+        <!-- grid ref circles along top -->
+        <circle cx="117" cy="14" r="5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+        <circle cx="207" cy="14" r="5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+        <circle cx="297" cy="14" r="5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+        <circle cx="387" cy="14" r="5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+
+        <!-- grid ref lines down from circles -->
+        <line x1="117" y1="19" x2="117" y2="28" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+        <line x1="207" y1="19" x2="207" y2="28" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+        <line x1="297" y1="19" x2="297" y2="28" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+        <line x1="387" y1="19" x2="387" y2="28" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+
+        <!-- detail callout circle — top right panel -->
+        <circle cx="387" cy="64" r="18" fill="none" stroke="rgba(158,107,71,0.4)" stroke-width="0.75" stroke-dasharray="2,2"/>
+        <line x1="405" y1="46" x2="430" y2="32" stroke="rgba(158,107,71,0.4)" stroke-width="0.75"/>
+        <text x="434" y="30" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" letter-spacing="0.5">DET. A-01</text>
+
+        <!-- section cut line across floor 3 -->
+        <line x1="64" y1="244" x2="72" y2="244" stroke="rgba(158,107,71,0.55)" stroke-width="1"/>
+        <line x1="432" y1="244" x2="440" y2="244" stroke="rgba(158,107,71,0.55)" stroke-width="1"/>
+        <text x="442" y="247" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.55)" letter-spacing="0.5">A–A</text>
+
+        <!-- title block at bottom -->
+        <line x1="72" y1="478" x2="432" y2="478" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+        <text x="72" y="492" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.28)" letter-spacing="0.8">FACADE ELEVATION — TYPE FV-01</text>
+        <text x="432" y="492" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.2)" text-anchor="end" letter-spacing="0.5">SCALE 1:50</text>
+
+        <!-- corner marks -->
+        <path d="M72,28 L72,40 M72,28 L84,28" stroke="rgba(158,107,71,0.5)" stroke-width="1" fill="none"/>
+        <path d="M432,28 L432,40 M432,28 L420,28" stroke="rgba(158,107,71,0.5)" stroke-width="1" fill="none"/>
+        <path d="M72,460 L72,448 M72,460 L84,460" stroke="rgba(158,107,71,0.5)" stroke-width="1" fill="none"/>
+        <path d="M432,460 L432,448 M432,460 L420,460" stroke="rgba(158,107,71,0.5)" stroke-width="1" fill="none"/>
+      </svg>
     </div>
+
+    <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
   </section>
 
   <!-- ABOUT -->
@@ -1053,19 +610,78 @@
           <p class="about-body rev d1">
             Grounded in technical field execution and long-form infrastructure projects, Oris approaches facade systems with the discipline and material precision of engineering practice — not decoration. The work is coordination-intensive, technically demanding, and built on direct site experience across complex environments.
           </p>
+
+          <!-- Facade wall section diagram -->
+          <div class="section-diagram rev d2">
+            <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;margin-top:40px;" aria-hidden="true">
+              <!-- layer labels top -->
+              <text x="24"  y="12" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.35)" letter-spacing="0.8" text-anchor="middle">STRUCTURE</text>
+              <text x="96"  y="12" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.35)" letter-spacing="0.8" text-anchor="middle">INSULATION</text>
+              <text x="192" y="12" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.35)" letter-spacing="0.8" text-anchor="middle">AIR GAP</text>
+              <text x="296" y="12" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.35)" letter-spacing="0.8" text-anchor="middle">BRACKET / RAIL</text>
+              <text x="408" y="12" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.35)" letter-spacing="0.8" text-anchor="middle">PANEL FACE</text>
+              <!-- leader lines from labels to layers -->
+              <line x1="24"  y1="14" x2="24"  y2="22" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+              <line x1="96"  y1="14" x2="96"  y2="22" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+              <line x1="192" y1="14" x2="192" y2="22" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+              <line x1="296" y1="14" x2="296" y2="22" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+              <line x1="408" y1="14" x2="408" y2="22" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+              <!-- structural wall — solid, hatched-look -->
+              <rect x="0"  y="22" width="48" height="88" fill="rgba(26,26,23,0.07)" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+              <line x1="8"  y1="22" x2="48" y2="62" stroke="rgba(26,26,23,0.08)" stroke-width="0.75"/>
+              <line x1="8"  y1="36" x2="48" y2="76" stroke="rgba(26,26,23,0.08)" stroke-width="0.75"/>
+              <line x1="8"  y1="50" x2="48" y2="90" stroke="rgba(26,26,23,0.08)" stroke-width="0.75"/>
+              <line x1="8"  y1="64" x2="48" y2="104" stroke="rgba(26,26,23,0.08)" stroke-width="0.75"/>
+              <line x1="8"  y1="78" x2="38" y2="108" stroke="rgba(26,26,23,0.08)" stroke-width="0.75"/>
+              <!-- insulation layer -->
+              <rect x="49" y="22" width="94" height="88" fill="rgba(158,107,71,0.05)" stroke="rgba(26,26,23,0.12)" stroke-width="0.75"/>
+              <!-- insulation texture lines -->
+              <line x1="60"  y1="30" x2="60"  y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="74"  y1="30" x2="74"  y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="88"  y1="30" x2="88"  y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="102" y1="30" x2="102" y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="116" y1="30" x2="116" y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="130" y1="30" x2="130" y2="102" stroke="rgba(158,107,71,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <!-- air gap -->
+              <rect x="144" y="22" width="96" height="88" fill="rgba(26,26,23,0.012)" stroke="rgba(26,26,23,0.1)" stroke-width="0.5" stroke-dasharray="4,2"/>
+              <!-- bracket — shown as T-profile in section -->
+              <rect x="241" y="22" width="108" height="88" fill="none" stroke="rgba(26,26,23,0.08)" stroke-width="0.5"/>
+              <!-- T-bracket at mid-height -->
+              <rect x="248" y="58" width="6"  height="10" fill="rgba(26,26,23,0.14)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <rect x="244" y="64" width="14" height="4"  fill="rgba(26,26,23,0.14)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <!-- rail (L-section) -->
+              <rect x="270" y="54" width="4"  height="20" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <rect x="266" y="70" width="12" height="4"  fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <!-- second bracket set -->
+              <rect x="300" y="40" width="6"  height="10" fill="rgba(26,26,23,0.14)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <rect x="296" y="46" width="14" height="4"  fill="rgba(26,26,23,0.14)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <rect x="318" y="36" width="4"  height="20" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <rect x="314" y="52" width="12" height="4"  fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+              <!-- panel face — solid -->
+              <rect x="350" y="22" width="56" height="88" fill="rgba(26,26,23,0.055)" stroke="rgba(26,26,23,0.22)" stroke-width="0.75"/>
+              <!-- panel face surface lines (reveal) -->
+              <line x1="360" y1="22" x2="360" y2="110" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="370" y1="22" x2="370" y2="110" stroke="rgba(26,26,23,0.07)" stroke-width="0.5"/>
+              <!-- dimension arrow showing total system depth -->
+              <line x1="0" y1="118" x2="406" y2="118" stroke="rgba(158,107,71,0.35)" stroke-width="0.75" marker-start="url(#db)" marker-end="url(#da)"/>
+              <text x="203" y="128" font-family="Inter,sans-serif" font-size="7" fill="rgba(158,107,71,0.5)" text-anchor="middle" letter-spacing="0.5">SYSTEM DEPTH ≈ 350mm</text>
+            </svg>
+          </div>
         </div>
-        <div class="about-attrs">
-          <div class="attr rev d1">
-            <div class="attr-tag">Background</div>
-            <div class="attr-body">Formed from experience in road infrastructure, restraint systems and large-scale installation logistics — disciplines that demand precision under real site conditions.</div>
-          </div>
-          <div class="attr rev d2">
-            <div class="attr-tag">Positioning</div>
-            <div class="attr-body">Operating at the intersection of engineering execution and architectural systems — bringing field credibility to facade and material coordination work.</div>
-          </div>
-          <div class="attr rev d3">
-            <div class="attr-tag">Orientation</div>
-            <div class="attr-body">Contemporary architectural and industrial projects. Long-term engagements. Technical complexity welcome.</div>
+        <div class="about-right">
+          <div class="about-attrs">
+            <div class="attr rev d1">
+              <div class="attr-tag">Background</div>
+              <div class="attr-body">Formed from experience in road infrastructure, restraint systems and large-scale installation logistics — disciplines that demand precision under real site conditions.</div>
+            </div>
+            <div class="attr rev d2">
+              <div class="attr-tag">Positioning</div>
+              <div class="attr-body">Operating at the intersection of engineering execution and architectural systems — bringing field credibility to facade and material coordination work.</div>
+            </div>
+            <div class="attr rev d3">
+              <div class="attr-tag">Orientation</div>
+              <div class="attr-body">Contemporary architectural and industrial projects. Long-term engagements. Technical complexity welcome.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1083,50 +699,117 @@
       <div class="svc-grid">
 
         <div class="svc rev">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="10" height="31" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="11.5" y="0.5" width="10" height="31" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="22.5" y="0.5" width="10" height="31" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="33.5" y="0.5" width="6" height="31" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <line x1="0" y1="11" x2="40" y2="11" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="0" y1="22" x2="40" y2="22" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="0.5" y1="0.5" x2="0.5" y2="3.5" stroke="rgba(158,107,71,0.6)" stroke-width="1.2"/>
+              <line x1="39.5" y1="0.5" x2="39.5" y2="3.5" stroke="rgba(158,107,71,0.6)" stroke-width="1.2"/>
+            </svg>
+          </div>
           <div class="svc-num">01</div>
           <div class="svc-name">Facade Systems</div>
           <div class="svc-desc">Ventilated and fixed facade engineering — from substrate and framing through cladding installation and technical finishing detail.</div>
-          <div class="svc-bg-num">01</div>
           <div class="svc-mark"></div>
         </div>
 
         <div class="svc rev d1">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="18" height="14" fill="rgba(26,26,23,0.04)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="20.5" y="0.5" width="19" height="14" fill="rgba(26,26,23,0.025)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="0.5" y="16.5" width="13" height="15" fill="rgba(26,26,23,0.025)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <rect x="15.5" y="16.5" width="24" height="15" fill="rgba(26,26,23,0.04)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <line x1="9.5" y1="0.5" x2="9.5" y2="31.5" stroke="rgba(26,26,23,0.08)" stroke-width="0.5" stroke-dasharray="2,2"/>
+            </svg>
+          </div>
           <div class="svc-num">02</div>
           <div class="svc-name">Composite Panels</div>
           <div class="svc-desc">Aluminum composite, HPL and technical panel systems. Precision fabrication, clean joint execution and long-term system performance.</div>
-          <div class="svc-bg-num">02</div>
           <div class="svc-mark"></div>
         </div>
 
         <div class="svc rev d2">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <line x1="20" y1="0" x2="20" y2="32" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="0" y1="16" x2="40" y2="16" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <circle cx="20" cy="16" r="6" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <circle cx="20" cy="16" r="1.5" fill="rgba(158,107,71,0.55)"/>
+              <line x1="8" y1="4" x2="12" y2="8" stroke="rgba(158,107,71,0.4)" stroke-width="0.75"/>
+              <line x1="28" y1="24" x2="32" y2="28" stroke="rgba(158,107,71,0.4)" stroke-width="0.75"/>
+              <line x1="4" y1="12" x2="16" y2="12" stroke="rgba(26,26,23,0.12)" stroke-width="0.5" stroke-dasharray="2,2"/>
+              <line x1="24" y1="20" x2="36" y2="20" stroke="rgba(26,26,23,0.12)" stroke-width="0.5" stroke-dasharray="2,2"/>
+            </svg>
+          </div>
           <div class="svc-num">03</div>
           <div class="svc-name">Technical Installation</div>
           <div class="svc-desc">Structured installation methodology across facade, industrial and infrastructure contexts. Sequence-driven and site-coordinated.</div>
-          <div class="svc-bg-num">03</div>
           <div class="svc-mark"></div>
         </div>
 
         <div class="svc rev d1">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="0.5" y="13.5" width="39" height="5" fill="rgba(26,26,23,0.05)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <line x1="8"  y1="13.5" x2="8"  y2="0.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="16" y1="13.5" x2="16" y2="0.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="24" y1="13.5" x2="24" y2="0.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="32" y1="13.5" x2="32" y2="0.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="8"  y1="18.5" x2="8"  y2="31.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="16" y1="18.5" x2="16" y2="31.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="24" y1="18.5" x2="24" y2="31.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <line x1="32" y1="18.5" x2="32" y2="31.5" stroke="rgba(26,26,23,0.15)" stroke-width="0.75"/>
+              <circle cx="8"  cy="16" r="1.5" fill="rgba(158,107,71,0.4)"/>
+              <circle cx="16" cy="16" r="1.5" fill="rgba(158,107,71,0.4)"/>
+              <circle cx="24" cy="16" r="1.5" fill="rgba(158,107,71,0.4)"/>
+              <circle cx="32" cy="16" r="1.5" fill="rgba(158,107,71,0.4)"/>
+            </svg>
+          </div>
           <div class="svc-num">04</div>
           <div class="svc-name">Material Coordination</div>
           <div class="svc-desc">Supply chain management, material specification, delivery scheduling and quality verification for complex facade packages.</div>
-          <div class="svc-bg-num">04</div>
           <div class="svc-mark"></div>
         </div>
 
         <div class="svc rev d2">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polyline points="0,28 10,16 20,20 30,8 40,12" fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+              <circle cx="0"  cy="28" r="1.5" fill="rgba(26,26,23,0.25)"/>
+              <circle cx="10" cy="16" r="1.5" fill="rgba(26,26,23,0.25)"/>
+              <circle cx="20" cy="20" r="1.5" fill="rgba(26,26,23,0.25)"/>
+              <circle cx="30" cy="8"  r="1.5" fill="rgba(26,26,23,0.25)"/>
+              <circle cx="40" cy="12" r="1.5" fill="rgba(158,107,71,0.55)"/>
+              <line x1="0" y1="31.5" x2="40" y2="31.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="0" y1="0.5" x2="0" y2="31.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+            </svg>
+          </div>
           <div class="svc-num">05</div>
           <div class="svc-name">Engineering Support</div>
           <div class="svc-desc">Technical documentation, shop drawings, system detailing and field engineering coordination for architects and general contractors.</div>
-          <div class="svc-bg-num">05</div>
           <div class="svc-mark"></div>
         </div>
 
         <div class="svc rev d3">
+          <div class="svc-icon">
+            <svg viewBox="0 0 40 32" width="40" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="0.5" y="0.5" width="39" height="31" fill="none" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+              <line x1="0.5" y1="10.5" x2="39.5" y2="10.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="0.5" y1="21.5" x2="39.5" y2="21.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="13.5" y1="0.5" x2="13.5" y2="31.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <line x1="26.5" y1="0.5" x2="26.5" y2="31.5" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+              <rect x="2" y="2" width="10" height="8" fill="rgba(158,107,71,0.1)"/>
+              <rect x="28" y="22" width="10" height="8" fill="rgba(158,107,71,0.1)"/>
+            </svg>
+          </div>
           <div class="svc-num">06</div>
           <div class="svc-name">Industrial Solutions</div>
           <div class="svc-desc">Facade and enclosure systems for industrial facilities. Functional, durable and integrated with structural and mechanical requirements.</div>
-          <div class="svc-bg-num">06</div>
           <div class="svc-mark"></div>
         </div>
 
@@ -1136,6 +819,145 @@
 
   <!-- EXECUTION BACKGROUND -->
   <section id="execution" class="section">
+    <!-- Full-width anchor/restraint abstraction band -->
+    <div class="exec-visual-band">
+      <div class="exec-band-inner">
+        <svg viewBox="0 0 1096 140" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:block;">
+          <!-- BASE GRID — horizontal reference lines -->
+          <line x1="0" y1="70" x2="1096" y2="70" stroke="rgba(26,26,23,0.07)" stroke-width="0.75"/>
+          <line x1="0" y1="35" x2="1096" y2="35" stroke="rgba(26,26,23,0.04)" stroke-width="0.5" stroke-dasharray="4,4"/>
+          <line x1="0" y1="105" x2="1096" y2="105" stroke="rgba(26,26,23,0.04)" stroke-width="0.5" stroke-dasharray="4,4"/>
+
+          <!-- NODE 1 — anchor bolt pattern (restraint system) -->
+          <!-- central bolt cross -->
+          <circle cx="90" cy="70" r="16" fill="none" stroke="rgba(26,26,23,0.12)" stroke-width="0.75"/>
+          <circle cx="90" cy="70" r="4"  fill="none" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+          <circle cx="90" cy="70" r="1.5" fill="rgba(26,26,23,0.3)"/>
+          <!-- bolt positions on PCD -->
+          <circle cx="90" cy="54" r="2.5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <circle cx="90" cy="86" r="2.5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <circle cx="74" cy="70" r="2.5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <circle cx="106" cy="70" r="2.5" fill="none" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <!-- cross lines through center -->
+          <line x1="90" y1="38" x2="90" y2="102" stroke="rgba(26,26,23,0.08)" stroke-width="0.5"/>
+          <line x1="57" y1="70" x2="123" y2="70" stroke="rgba(26,26,23,0.08)" stroke-width="0.5"/>
+          <!-- label -->
+          <text x="90" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">ANCHOR PATTERN</text>
+
+          <!-- NODE 2 — coordinate/axis system (infrastructure reference) -->
+          <line x1="210" y1="20" x2="210" y2="120" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <line x1="160" y1="70" x2="270" y2="70" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <!-- axis arrows -->
+          <path d="M210,20 L207,27 L213,27 Z" fill="rgba(26,26,23,0.2)"/>
+          <path d="M270,70 L263,67 L263,73 Z" fill="rgba(26,26,23,0.2)"/>
+          <!-- axis labels -->
+          <text x="215" y="18" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.25)" letter-spacing="0.5">Z</text>
+          <text x="272" y="74" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.25)" letter-spacing="0.5">X</text>
+          <!-- data points -->
+          <circle cx="210" cy="70" r="3" fill="none" stroke="rgba(158,107,71,0.45)" stroke-width="1"/>
+          <circle cx="210" cy="70" r="1" fill="rgba(158,107,71,0.55)"/>
+          <!-- load vectors -->
+          <line x1="210" y1="70" x2="248" y2="44" stroke="rgba(158,107,71,0.3)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <line x1="210" y1="70" x2="178" y2="52" stroke="rgba(158,107,71,0.25)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <text x="214" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">COORD. SYSTEM</text>
+
+          <!-- DIVIDER -->
+          <line x1="310" y1="20" x2="310" y2="120" stroke="rgba(26,26,23,0.06)" stroke-width="0.5" stroke-dasharray="2,4"/>
+
+          <!-- NODE 3 — fastening / connection detail (section view) -->
+          <!-- base plate -->
+          <rect x="355" y="58" width="60" height="6" fill="rgba(26,26,23,0.07)" stroke="rgba(26,26,23,0.18)" stroke-width="0.75"/>
+          <!-- threaded rods -->
+          <line x1="368" y1="40" x2="368" y2="58" stroke="rgba(26,26,23,0.22)" stroke-width="1.5"/>
+          <line x1="402" y1="40" x2="402" y2="58" stroke="rgba(26,26,23,0.22)" stroke-width="1.5"/>
+          <!-- rod threading (short dash lines) -->
+          <line x1="366" y1="42" x2="370" y2="42" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="366" y1="46" x2="370" y2="46" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="366" y1="50" x2="370" y2="50" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="366" y1="54" x2="370" y2="54" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="400" y1="42" x2="404" y2="42" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="400" y1="46" x2="404" y2="46" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="400" y1="50" x2="404" y2="50" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <line x1="400" y1="54" x2="404" y2="54" stroke="rgba(26,26,23,0.15)" stroke-width="0.5"/>
+          <!-- nuts (hexagons simplified as rects) -->
+          <rect x="364" y="36" width="8" height="5" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+          <rect x="398" y="36" width="8" height="5" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.2)" stroke-width="0.5"/>
+          <!-- embedded in wall below -->
+          <rect x="340" y="64" width="90" height="30" fill="rgba(26,26,23,0.05)" stroke="rgba(26,26,23,0.12)" stroke-width="0.5"/>
+          <line x1="348" y1="64" x2="385" y2="94" stroke="rgba(26,26,23,0.06)" stroke-width="0.5"/>
+          <line x1="362" y1="64" x2="399" y2="94" stroke="rgba(26,26,23,0.06)" stroke-width="0.5"/>
+          <line x1="376" y1="64" x2="413" y2="94" stroke="rgba(26,26,23,0.06)" stroke-width="0.5"/>
+          <text x="385" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">FIXINGS DETAIL</text>
+
+          <!-- DIVIDER -->
+          <line x1="460" y1="20" x2="460" y2="120" stroke="rgba(26,26,23,0.06)" stroke-width="0.5" stroke-dasharray="2,4"/>
+
+          <!-- NODE 4 — installation sequence (numbered steps) -->
+          <!-- Step flow diagram -->
+          <circle cx="510" cy="50" r="10" fill="none" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <text x="510" y="54" font-family="Inter,sans-serif" font-size="8" fill="rgba(26,26,23,0.3)" text-anchor="middle">1</text>
+          <line x1="521" y1="50" x2="539" y2="50" stroke="rgba(26,26,23,0.12)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <circle cx="550" cy="50" r="10" fill="none" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <text x="550" y="54" font-family="Inter,sans-serif" font-size="8" fill="rgba(26,26,23,0.3)" text-anchor="middle">2</text>
+          <line x1="561" y1="50" x2="579" y2="50" stroke="rgba(26,26,23,0.12)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <circle cx="590" cy="50" r="10" fill="none" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <text x="590" y="54" font-family="Inter,sans-serif" font-size="8" fill="rgba(26,26,23,0.3)" text-anchor="middle">3</text>
+          <line x1="601" y1="50" x2="619" y2="50" stroke="rgba(26,26,23,0.12)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <circle cx="630" cy="50" r="10" fill="rgba(158,107,71,0.06)" stroke="rgba(158,107,71,0.4)" stroke-width="0.75"/>
+          <text x="630" y="54" font-family="Inter,sans-serif" font-size="8" fill="rgba(158,107,71,0.6)" text-anchor="middle">4</text>
+          <!-- step labels below -->
+          <text x="510" y="78" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(26,26,23,0.22)" text-anchor="middle" letter-spacing="0.3">SURVEY</text>
+          <text x="550" y="78" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(26,26,23,0.22)" text-anchor="middle" letter-spacing="0.3">BRACKET</text>
+          <text x="590" y="78" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(26,26,23,0.22)" text-anchor="middle" letter-spacing="0.3">RAIL</text>
+          <text x="630" y="78" font-family="Inter,sans-serif" font-size="6.5" fill="rgba(158,107,71,0.5)" text-anchor="middle" letter-spacing="0.3">PANEL</text>
+          <text x="570" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">INSTALLATION SEQUENCE</text>
+
+          <!-- DIVIDER -->
+          <line x1="680" y1="20" x2="680" y2="120" stroke="rgba(26,26,23,0.06)" stroke-width="0.5" stroke-dasharray="2,4"/>
+
+          <!-- NODE 5 — structural grid (plan view) -->
+          <!-- simple structural grid plan -->
+          <line x1="710" y1="30" x2="710" y2="110" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="748" y1="30" x2="748" y2="110" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="786" y1="30" x2="786" y2="110" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="700" y1="50" x2="796" y2="50" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="700" y1="70" x2="796" y2="70" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="700" y1="90" x2="796" y2="90" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <!-- column symbols at intersections -->
+          <rect x="706.5" y="46.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="744.5" y="46.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="782.5" y="46.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="706.5" y="66.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="744.5" y="66.5" width="7" height="7" fill="rgba(158,107,71,0.14)" stroke="rgba(158,107,71,0.4)" stroke-width="0.5"/>
+          <rect x="782.5" y="66.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="706.5" y="86.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="744.5" y="86.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <rect x="782.5" y="86.5" width="7" height="7" fill="rgba(26,26,23,0.12)" stroke="rgba(26,26,23,0.22)" stroke-width="0.5"/>
+          <text x="748" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">STRUCTURAL GRID</text>
+
+          <!-- DIVIDER -->
+          <line x1="836" y1="20" x2="836" y2="120" stroke="rgba(26,26,23,0.06)" stroke-width="0.5" stroke-dasharray="2,4"/>
+
+          <!-- NODE 6 — tolerance / dimension notation -->
+          <line x1="876" y1="50" x2="1036" y2="50" stroke="rgba(26,26,23,0.13)" stroke-width="0.75"/>
+          <line x1="876" y1="50" x2="876" y2="44" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <line x1="876" y1="50" x2="876" y2="56" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <line x1="956" y1="50" x2="956" y2="44" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <line x1="956" y1="50" x2="956" y2="56" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <line x1="1036" y1="50" x2="1036" y2="44" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <line x1="1036" y1="50" x2="1036" y2="56" stroke="rgba(26,26,23,0.2)" stroke-width="0.75"/>
+          <text x="916" y="44" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.5">900</text>
+          <text x="996" y="44" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.5">900</text>
+          <!-- tolerance annotation -->
+          <line x1="876" y1="70" x2="1036" y2="70" stroke="rgba(158,107,71,0.3)" stroke-width="0.75" stroke-dasharray="3,2"/>
+          <text x="956" y="84" font-family="Inter,sans-serif" font-size="7.5" fill="rgba(158,107,71,0.5)" text-anchor="middle" letter-spacing="0.5">TOL. ±1.5mm</text>
+          <!-- profile lines below -->
+          <line x1="876" y1="90" x2="1036" y2="90" stroke="rgba(26,26,23,0.1)" stroke-width="0.5"/>
+          <text x="956" y="122" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.25)" text-anchor="middle" letter-spacing="0.8">TOLERANCE SPEC.</text>
+        </svg>
+      </div>
+    </div>
+
     <div class="wrap">
       <div class="sec-label rev">
         <span class="sec-idx">03</span>
@@ -1211,6 +1033,71 @@
           <div class="pr-desc">Consistent delivery without unexpected gaps. Coordination that holds under pressure and adapts to real site conditions.</div>
         </div>
       </div>
+    </div>
+
+    <!-- Material palette strip -->
+    <div class="material-band rev">
+      <div style="max-width:1200px;margin:0 auto;padding:0 52px;">
+        <svg viewBox="0 0 1096 80" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:block;">
+          <!-- material swatches — 6 panels representing facade materials -->
+          <!-- Graphite aluminum -->
+          <rect x="0"   y="0" width="160" height="60" fill="rgba(58,58,55,0.14)" stroke="rgba(26,26,23,0.12)" stroke-width="0.75"/>
+          <!-- brushed lines simulating aluminum -->
+          <line x1="2"  y1="4"  x2="2"  y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <line x1="8"  y1="4"  x2="8"  y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <line x1="14" y1="4"  x2="14" y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <line x1="20" y1="4"  x2="20" y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <line x1="26" y1="4"  x2="26" y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <line x1="32" y1="4"  x2="32" y2="56" stroke="rgba(26,26,23,0.04)" stroke-width="0.75"/>
+          <text x="80" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">GRAPHITE ALU.</text>
+
+          <!-- Concrete grey -->
+          <rect x="162" y="0" width="160" height="60" fill="rgba(26,26,23,0.07)" stroke="rgba(26,26,23,0.1)" stroke-width="0.75"/>
+          <!-- aggregate texture -->
+          <circle cx="182" cy="20" r="1.5" fill="rgba(26,26,23,0.08)"/>
+          <circle cx="200" cy="35" r="1" fill="rgba(26,26,23,0.08)"/>
+          <circle cx="218" cy="15" r="2" fill="rgba(26,26,23,0.06)"/>
+          <circle cx="240" cy="42" r="1.5" fill="rgba(26,26,23,0.08)"/>
+          <circle cx="260" cy="25" r="1" fill="rgba(26,26,23,0.08)"/>
+          <circle cx="280" cy="48" r="2" fill="rgba(26,26,23,0.06)"/>
+          <circle cx="300" cy="18" r="1.5" fill="rgba(26,26,23,0.08)"/>
+          <text x="242" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">CONCRETE GREY</text>
+
+          <!-- Off-white mineral -->
+          <rect x="324" y="0" width="160" height="60" fill="rgba(26,26,23,0.03)" stroke="rgba(26,26,23,0.1)" stroke-width="0.75"/>
+          <text x="404" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">MINERAL WHITE</text>
+
+          <!-- Dark bronze -->
+          <rect x="486" y="0" width="160" height="60" fill="rgba(158,107,71,0.15)" stroke="rgba(158,107,71,0.3)" stroke-width="0.75"/>
+          <!-- patina lines -->
+          <line x1="488" y1="2"  x2="488" y2="58" stroke="rgba(158,107,71,0.08)" stroke-width="0.75"/>
+          <line x1="502" y1="2"  x2="502" y2="58" stroke="rgba(158,107,71,0.06)" stroke-width="0.75"/>
+          <line x1="516" y1="2"  x2="516" y2="58" stroke="rgba(158,107,71,0.08)" stroke-width="0.75"/>
+          <line x1="530" y1="2"  x2="530" y2="58" stroke="rgba(158,107,71,0.05)" stroke-width="0.75"/>
+          <line x1="544" y1="2"  x2="544" y2="58" stroke="rgba(158,107,71,0.08)" stroke-width="0.75"/>
+          <text x="566" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">OXIDISED BRONZE</text>
+
+          <!-- Matte black -->
+          <rect x="648" y="0" width="160" height="60" fill="rgba(26,26,23,0.18)" stroke="rgba(26,26,23,0.14)" stroke-width="0.75"/>
+          <text x="728" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">MATTE BLACK</text>
+
+          <!-- Raw steel / weathering -->
+          <rect x="810" y="0" width="160" height="60" fill="rgba(100,75,55,0.1)" stroke="rgba(26,26,23,0.1)" stroke-width="0.75"/>
+          <!-- rust pattern suggestion -->
+          <line x1="812" y1="8"  x2="840" y2="8"  stroke="rgba(100,75,55,0.1)" stroke-width="1.5"/>
+          <line x1="820" y1="18" x2="865" y2="18" stroke="rgba(100,75,55,0.08)" stroke-width="2"/>
+          <line x1="812" y1="30" x2="850" y2="30" stroke="rgba(100,75,55,0.1)" stroke-width="1"/>
+          <line x1="830" y1="42" x2="870" y2="42" stroke="rgba(100,75,55,0.08)" stroke-width="1.5"/>
+          <text x="890" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">WEATHERING STEEL</text>
+
+          <!-- HPL warm -->
+          <rect x="972" y="0" width="124" height="60" fill="rgba(180,160,130,0.12)" stroke="rgba(26,26,23,0.1)" stroke-width="0.75"/>
+          <text x="1034" y="72" font-family="Inter,sans-serif" font-size="7" fill="rgba(26,26,23,0.28)" text-anchor="middle" letter-spacing="0.8">HPL / WARM</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="wrap">
       <div class="approach-pull rev">
         <p>Engineering practice applied to facade systems — with the discipline of infrastructure and the sensibility of contemporary architecture.</p>
         <span class="pull-mark"></span>
@@ -1266,14 +1153,22 @@
   <script>
     const hdr = document.getElementById('hdr');
     window.addEventListener('scroll', () => {
-      hdr.classList.toggle('stuck', window.scrollY > 32);
+      hdr.classList.toggle('stuck', window.scrollY > 40);
     }, { passive: true });
 
     const revEls = document.querySelectorAll('.rev');
-    const revObs = new IntersectionObserver((entries) => {
+    new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
-    revEls.forEach(el => revObs.observe(el));
+    }, { threshold: 0.06, rootMargin: '0px 0px -28px 0px' }).observe
+      ? new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.06, rootMargin: '0px 0px -28px 0px' }).observe(revEls[0])
+      : null;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.06, rootMargin: '0px 0px -28px 0px' });
+    revEls.forEach(el => obs.observe(el));
 
     document.querySelectorAll('.lang [data-lang]').forEach(el => {
       el.addEventListener('click', () => {
