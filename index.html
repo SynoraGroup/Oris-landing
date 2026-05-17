@@ -104,14 +104,14 @@
     }
     .nav-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
     .logo {
-      font-family: var(--f0); font-size: 12.5px; font-weight: 500;
+      font-family: var(--f0); font-size: 14px; font-weight: 500;
       letter-spacing: 0.26em; text-transform: uppercase;
-      color: inherit; text-decoration: none; display: flex; align-items: center; gap: 7px;
+      color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px;
     }
-    .logo-mark { width: 18px; height: 18px; flex-shrink: 0; }
-    nav.main-nav { display: flex; align-items: center; gap: 32px; }
+    .logo-mark { width: 20px; height: 20px; flex-shrink: 0; }
+    nav.main-nav { display: flex; align-items: center; gap: 36px; }
     .main-nav a {
-      font-family: var(--fm); font-size: 10px; font-weight: 300;
+      font-family: var(--fm); font-size: 11px; font-weight: 300;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--text-s); text-decoration: none; transition: color 0.2s;
     }
@@ -455,7 +455,7 @@
     .mat-panel::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(17,17,17,0.75) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(17,17,17,0.6) 0%, transparent 65%);
       z-index: 1;
     }
     .mat-panel-label {
@@ -564,20 +564,15 @@
     }
     .contact-wm {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
+      right: -20px; bottom: -60px;
       font-family: var(--f0);
-      font-size: clamp(200px, 32vw, 520px);
+      font-size: clamp(160px, 22vw, 320px);
       font-weight: 200;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.06em;
       line-height: 1;
       pointer-events: none; user-select: none;
       z-index: 0; white-space: nowrap;
-      /* Copper-tinted fill + thin copper stroke — etched seal effect */
-      color: rgba(196,98,45,0.04);
-      -webkit-text-stroke: 1px rgba(196,98,45,0.09);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      will-change: transform, opacity;
+      color: rgba(196,98,45,0.055);
     }
     .contact-content { position: relative; z-index: 1; }
     .contact-cols {
@@ -1164,6 +1159,9 @@
           <p class="contact-body rev d1">
             Oris works on a selective basis with architects, developers and general contractors on technically demanding facade and engineering projects. We welcome direct, substantive enquiries.
           </p>
+          <div class="contact-cta rev d2" style="margin-top: 36px;">
+            <a href="mailto:info@orisgroup.bg" class="cta-btn">Start a conversation <span class="arr">→</span></a>
+          </div>
         </div>
         <div class="contact-right">
           <div class="c-row rev">
@@ -1246,9 +1244,7 @@
     const heroDrawing = document.querySelector('.hero-drawing');
     const heroGlow = document.querySelector('.hero-glow');
     const aboutGhost = document.querySelector('.about-ghost');
-    const contactWm = document.querySelector('.contact-wm');
     const heroSection = document.getElementById('hero');
-    const contactSection = document.getElementById('contact');
 
     function onScroll() {
       const y = window.scrollY;
@@ -1265,16 +1261,6 @@
         const aboutProgress = 1 - (aboutRect.top / window.innerHeight);
         if (aboutProgress > 0 && aboutProgress < 2) {
           aboutGhost.style.transform = 'translate(-50%, -50%) translateY(' + (aboutProgress * 30) + 'px)';
-        }
-      }
-      if (contactWm && contactSection) {
-        const contactRect = contactSection.getBoundingClientRect();
-        const contactProgress = 1 - (contactRect.top / window.innerHeight);
-        if (contactProgress > 0 && contactProgress < 1.5) {
-          const opacity = 0.04 + Math.min(contactProgress * 0.05, 0.07);
-          contactWm.style.opacity = opacity;
-          const scale = 0.98 + Math.min(contactProgress * 0.03, 0.04);
-          contactWm.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
         }
       }
     }
