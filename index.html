@@ -163,8 +163,8 @@
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(240,236,227,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(240,236,227,0.02) 1px, transparent 1px);
+        linear-gradient(rgba(240,236,227,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,236,227,0.012) 1px, transparent 1px);
       background-size: 80px 80px;
       pointer-events: none; z-index: 0;
     }
@@ -276,7 +276,7 @@
 
     /* ─────────────── ABOUT ─────────────── */
     #about {
-      padding: 180px 0 140px;
+      padding: 200px 0 160px;
       position: relative; overflow: hidden;
       background: var(--bg);
     }
@@ -302,7 +302,7 @@
       line-height: 1.2;
       letter-spacing: -0.02em;
       color: var(--text-p);
-      max-width: 880px;
+      max-width: 1000px;
       margin-bottom: 40px;
     }
     .about-statement strong { font-weight: 500; }
@@ -318,7 +318,7 @@
 
     /* ─────────────── SERVICES ─────────────── */
     #services {
-      padding: 120px 0 160px;
+      padding: 140px 0 180px;
       background: var(--bg);
     }
     .svc-list { border-top: 1px solid var(--border); }
@@ -368,7 +368,7 @@
 
     /* ─────────────── EXECUTION ─────────────── */
     #execution {
-      padding: 0 0 160px;
+      padding: 0 0 180px;
       background: var(--bg);
     }
     .exec-axon {
@@ -447,91 +447,60 @@
       color: var(--text-p);
     }
 
+    /* Atmospheric bridges between sections */
+    .atmo-bridge {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(196,98,45,0.08) 30%, rgba(196,98,45,0.12) 50%, rgba(196,98,45,0.08) 70%, transparent 100%);
+      margin: 0;
+      position: relative;
+    }
+    .atmo-bridge::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: 0; right: 0;
+      height: 120px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,98,45,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
     /* ─────────────── APPROACH ─────────────── */
     #approach {
-      padding: 120px 0 160px;
+      padding: 140px 0 180px;
       position: relative;
       background: var(--bg);
     }
 
-    /* Luminous material band */
-    .mat-band {
+    /* Atmospheric material band — color temperature shift, not literal swatches */
+    .mat-atmosphere {
       position: relative;
       width: 100vw;
       left: 50%; right: 50%;
       margin-left: -50vw; margin-right: -50vw;
-      height: 50vh; min-height: 360px; max-height: 520px;
+      height: 45vh; min-height: 300px; max-height: 420px;
       overflow: hidden;
       margin-bottom: 120px;
-      display: flex;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(74,107,122,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(196,98,45,0.08) 0%, transparent 50%),
+        linear-gradient(90deg,
+          #1a1814 0%,
+          #1e1c18 18%,
+          #252219 35%,
+          #2a2520 50%,
+          #252219 65%,
+          #1e1c18 82%,
+          #1a1814 100%
+        );
     }
-    .mat-panel {
-      flex: 1;
-      position: relative;
-      transition: flex 0.6s cubic-bezier(0.22,1,0.36,1);
-      overflow: hidden;
-    }
-    .mat-panel:hover { flex: 1.8; }
-    .mat-panel::after {
+    .mat-atmosphere::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(17,17,17,0.6) 0%, transparent 65%);
-      z-index: 1;
+      background:
+        linear-gradient(to top, rgba(17,17,17,0.85) 0%, transparent 40%),
+        linear-gradient(to bottom, rgba(17,17,17,0.85) 0%, transparent 40%);
+      pointer-events: none;
     }
-    .mat-panel-label {
-      position: absolute;
-      bottom: 24px; left: 24px;
-      font-family: var(--fm); font-size: 10px;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      z-index: 2;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .mat-panel:hover .mat-panel-label {
-      opacity: 1; transform: translateY(0);
-    }
-    /* Material textures via CSS */
-    .mat-1 { background: #4a4844; }
-    .mat-1::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(255,255,255,0.04) 6px, rgba(255,255,255,0.04) 7px);
-    }
-    .mat-2 { background: #6a6660; }
-    .mat-2::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(26,23,20,0.25) 1px, transparent 1px);
-      background-size: 18px 18px;
-    }
-    .mat-3 { background: #e8e4dc; }
-    .mat-3 .mat-panel-label { color: rgba(26,23,20,0.7); }
-    .mat-3::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 32px, rgba(26,23,20,0.04) 32px, rgba(26,23,20,0.04) 33px);
-    }
-    .mat-4 { background: #9b6642; }
-    .mat-4::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(60deg, transparent, transparent 10px, rgba(155,102,66,0.3) 10px, rgba(155,102,66,0.3) 13px, transparent 13px, transparent 23px, rgba(80,40,10,0.25) 23px, rgba(80,40,10,0.25) 25px);
-    }
-    .mat-5 { background: #1a1714; }
-    .mat-5::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,0.02) 24px, rgba(255,255,255,0.02) 25px);
-    }
-    .mat-6 { background: #7a5038; }
-    .mat-6::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 9px, rgba(40,18,8,0.35) 9px, rgba(40,18,8,0.35) 11px, transparent 11px, transparent 18px, rgba(200,120,60,0.15) 18px, rgba(200,120,60,0.15) 19px);
-    }
-    .mat-7 { background: #b89068; }
-    .mat-7::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(2deg, transparent, transparent 8px, rgba(80,50,20,0.12) 8px, rgba(80,50,20,0.12) 9px, transparent 9px, transparent 15px, rgba(180,130,80,0.18) 15px, rgba(180,130,80,0.18) 17px);
-    }
-    .mat-panel::before { animation: matDrift 24s linear infinite; }
-    .mat-2::before, .mat-4::before, .mat-6::before { animation-direction: reverse; animation-duration: 20s; }
 
     .principles {
       display: flex;
@@ -577,7 +546,7 @@
       opacity: 0.85;
     }
     .approach-pull {
-      max-width: 760px; margin: 100px auto 0;
+      max-width: 900px; margin: 100px auto 0;
       text-align: center; padding: 0 24px;
     }
     .approach-pull p {
@@ -594,7 +563,7 @@
 
     /* ─────────────── CONTACT ─────────────── */
     #contact {
-      padding: 160px 0 48px;
+      padding: 180px 0 48px;
       position: relative; overflow: hidden;
       min-height: 80vh;
       display: flex; flex-direction: column; justify-content: center;
@@ -621,12 +590,13 @@
     }
     .contact-heading {
       font-family: var(--f0);
-      font-size: clamp(28px, 3.5vw, 52px);
+      font-size: clamp(32px, 4vw, 58px);
       font-weight: 300;
       letter-spacing: -0.025em;
       line-height: 1.1;
       color: var(--text-p);
       margin-bottom: 24px;
+      max-width: 600px;
     }
     .contact-body {
       font-family: var(--f0); font-size: 15px; font-weight: 400;
@@ -935,13 +905,13 @@
 
         <!-- Annotation layer -->
         <g class="panel-ann">
-          <line x1="88" y1="180" x2="106" y2="180" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="88" y1="300" x2="106" y2="300" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="88" y1="420" x2="106" y2="420" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="88" y1="540" x2="106" y2="540" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="88" y1="660" x2="106" y2="660" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="88" y1="780" x2="106" y2="780" stroke="rgba(196,98,45,0.45)" stroke-width="0.75"/>
-          <line x1="97"  y1="60"  x2="97"  y2="860" stroke="rgba(196,98,45,0.2)"  stroke-width="0.5"/>
+          <line x1="88" y1="180" x2="106" y2="180" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="88" y1="300" x2="106" y2="300" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="88" y1="420" x2="106" y2="420" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="88" y1="540" x2="106" y2="540" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="88" y1="660" x2="106" y2="660" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="88" y1="780" x2="106" y2="780" stroke="rgba(196,98,45,0.3)" stroke-width="0.75"/>
+          <line x1="97"  y1="60"  x2="97"  y2="860" stroke="rgba(196,98,45,0.12)"  stroke-width="0.5"/>
           <text x="96" y="880" font-family="DM Mono,monospace" font-size="7.5" fill="rgba(196,98,45,0.45)" letter-spacing="0.8">FACADE SYS. FV-03 — COPPER / CHARCOAL — 1:75</text>
         </g>
 
@@ -991,6 +961,8 @@
     </div>
   </section>
 
+  <div class="atmo-bridge" aria-hidden="true"></div>
+
   <!-- ═══ SERVICES ═══ -->
   <section id="services">
     <div class="wrap">
@@ -1033,6 +1005,8 @@
       </div>
     </div>
   </section>
+
+  <div class="atmo-bridge" aria-hidden="true"></div>
 
   <!-- ═══ EXECUTION ═══ -->
   <section id="execution">
@@ -1132,28 +1106,28 @@
             <div class="exec-bar"></div>
             <div>
               <div class="exec-area-title">Road Infrastructure</div>
-              <div class="exec-area-desc">Experience coordinating installation in live infrastructure environments — sequencing, logistics and technical compliance under constrained timelines.</div>
+              <div class="exec-area-desc">Installation coordination in live infrastructure — sequencing, logistics and technical compliance.</div>
             </div>
           </div>
           <div class="exec-area rev d1">
             <div class="exec-bar"></div>
             <div>
               <div class="exec-area-title">Restraint Systems</div>
-              <div class="exec-area-desc">Precision anchoring, structural fixings and safety-critical installation work — disciplines directly transferable to facade substrate engineering.</div>
+              <div class="exec-area-desc">Precision anchoring, structural fixings and safety-critical installation.</div>
             </div>
           </div>
           <div class="exec-area rev d2">
             <div class="exec-bar"></div>
             <div>
               <div class="exec-area-title">Logistics &amp; Coordination</div>
-              <div class="exec-area-desc">Material delivery, site sequencing and multi-trade coordination for large-scale projects with concurrent workstreams.</div>
+              <div class="exec-area-desc">Material delivery, site sequencing and multi-trade coordination.</div>
             </div>
           </div>
           <div class="exec-area rev d3">
             <div class="exec-bar"></div>
             <div>
               <div class="exec-area-title">Field Discipline</div>
-              <div class="exec-area-desc">Direct site presence, technical accountability and execution continuity from initial scope definition through final sign-off.</div>
+              <div class="exec-area-desc">Direct site presence and execution continuity from scope to sign-off.</div>
             </div>
           </div>
         </div>
@@ -1163,6 +1137,8 @@
       </div>
     </div>
   </section>
+
+  <div class="atmo-bridge" aria-hidden="true"></div>
 
   <!-- ═══ APPROACH ═══ -->
   <section id="approach">
@@ -1174,16 +1150,8 @@
       </div>
     </div>
 
-    <!-- Luminous material band -->
-    <div class="mat-band" aria-hidden="true">
-      <div class="mat-panel mat-1"><span class="mat-panel-label">Graphite Aluminum</span></div>
-      <div class="mat-panel mat-2"><span class="mat-panel-label">Concrete Grey</span></div>
-      <div class="mat-panel mat-3"><span class="mat-panel-label">Mineral White</span></div>
-      <div class="mat-panel mat-4"><span class="mat-panel-label">Oxidised Bronze</span></div>
-      <div class="mat-panel mat-5"><span class="mat-panel-label">Matte Black</span></div>
-      <div class="mat-panel mat-6"><span class="mat-panel-label">Weathering Steel</span></div>
-      <div class="mat-panel mat-7"><span class="mat-panel-label">HPL Warm</span></div>
-    </div>
+    <!-- Atmospheric material band — color temperature, not literal swatches -->
+    <div class="mat-atmosphere" aria-hidden="true"></div>
 
     <div class="wrap">
       <div class="principles">
@@ -1215,6 +1183,8 @@
       </div>
     </div>
   </section>
+
+  <div class="atmo-bridge" aria-hidden="true"></div>
 
   <!-- ═══ CONTACT ═══ -->
   <section id="contact">
