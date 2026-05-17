@@ -52,17 +52,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Subtle film-grain texture */
-    .noise {
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 256px 256px;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.6;
-    }
-    /* Vignette */
+    /* Vignette — single compositing layer */
     .vignette {
       position: fixed; inset: 0;
       background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%);
@@ -77,6 +67,7 @@
     /* ─────────────── LAYOUT ─────────────── */
     .wrap { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
     .wrap-wide { max-width: 1400px; margin: 0 auto; padding: 0 56px; }
+    section { content-visibility: auto; contain-intrinsic-size: 0 500px; }
 
     /* Section label */
     .sec-label {
@@ -108,7 +99,7 @@
     }
     #hdr.stuck {
       background: rgba(17,17,17,0.92);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-color: var(--border-cu);
     }
     .nav-row { width: 100%; display: flex; align-items: center; justify-content: space-between; }
@@ -143,13 +134,14 @@
     /* Full-bleed panel composition */
     .hero-drawing {
       position: absolute; inset: 0; z-index: 1;
+      will-change: transform;
     }
     .hero-drawing svg { width: 100%; height: 100%; display: block; }
 
     /* Scrim layers for text legibility */
     .hero-scrim-left {
       position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(17,17,17,0.96) 0%, rgba(17,17,17,0.75) 30%, rgba(17,17,17,0.25) 55%, transparent 100%);
+      background: linear-gradient(to right, rgba(17,17,17,0.96) 0%, rgba(17,17,17,0.8) 35%, rgba(17,17,17,0.3) 65%, transparent 100%);
       z-index: 2; pointer-events: none;
     }
     .hero-scrim-bottom {
@@ -164,6 +156,8 @@
       width: 70%; height: 120%;
       background: radial-gradient(ellipse at 70% 30%, rgba(196,98,45,0.15) 0%, rgba(168,81,42,0.06) 40%, transparent 70%);
       pointer-events: none; z-index: 1;
+      animation: glowPulse 4s ease-in-out infinite;
+      will-change: transform, opacity;
     }
     /* Fine grid underlay */
     .hero-grid {
@@ -251,7 +245,7 @@
     }
     .scroll-line {
       width: 1px; height: 36px;
-      background: linear-gradient(to bottom, var(--copper), transparent);
+      background: linear-gradient(to bottom, var(--copper), var(--cool));
     }
 
     /* Hero SVG panel animations */
@@ -270,6 +264,14 @@
     @keyframes panelFade {
       from { opacity: 0; }
       to   { opacity: 1; }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 1.35; }
+    }
+    @keyframes matDrift {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-20px, -20px, 0); }
     }
 
     /* ─────────────── ABOUT ─────────────── */
@@ -290,6 +292,7 @@
       line-height: 1;
       user-select: none; pointer-events: none;
       white-space: nowrap; z-index: 0;
+      will-change: transform;
     }
     .about-inner { position: relative; z-index: 1; }
     .about-statement {
@@ -329,6 +332,10 @@
       background: rgba(240,236,227,0.02);
       padding-left: 16px;
     }
+    .svc-row:hover .svc-name { transform: translateX(8px); }
+    .svc-row:hover .svc-desc { opacity: 1; color: var(--text-p); }
+    .svc-name { transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .svc-desc { transition: opacity 0.4s ease, color 0.4s ease; opacity: 0.7; }
     .svc-row::after {
       content: '';
       position: absolute; bottom: 0; left: 0;
@@ -503,6 +510,8 @@
       content: ''; position: absolute; inset: 0;
       background: repeating-linear-gradient(2deg, transparent, transparent 8px, rgba(80,50,20,0.12) 8px, rgba(80,50,20,0.12) 9px, transparent 9px, transparent 15px, rgba(180,130,80,0.18) 15px, rgba(180,130,80,0.18) 17px);
     }
+    .mat-panel::before { animation: matDrift 24s linear infinite; }
+    .mat-2::before, .mat-4::before, .mat-6::before { animation-direction: reverse; animation-duration: 20s; }
 
     .principles {
       display: grid;
@@ -541,7 +550,8 @@
     }
     .pull-mark {
       display: block; width: 40px; height: 2px;
-      background: var(--copper); margin: 32px auto 0;
+      background: linear-gradient(90deg, var(--copper), var(--cool));
+      margin: 32px auto 0;
     }
 
     /* ─────────────── CONTACT ─────────────── */
@@ -560,10 +570,14 @@
       font-size: clamp(200px, 32vw, 520px);
       font-weight: 200;
       letter-spacing: -0.04em;
-      color: rgba(232,228,220,0.022);
       line-height: 1;
       pointer-events: none; user-select: none;
       z-index: 0; white-space: nowrap;
+      /* Copper-tinted fill + thin copper stroke — etched seal effect */
+      color: rgba(196,98,45,0.04);
+      -webkit-text-stroke: 1px rgba(196,98,45,0.09);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      will-change: transform, opacity;
     }
     .contact-content { position: relative; z-index: 1; }
     .contact-cols {
@@ -638,6 +652,40 @@
     .rev.d2 { transition-delay: 0.16s; }
     .rev.d3 { transition-delay: 0.24s; }
     .rev.d4 { transition-delay: 0.32s; }
+    /* Word-level reveal */
+    .word-rev .word {
+      display: inline-block;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .word-rev.in .word {
+      opacity: 1; transform: translateY(0);
+    }
+    .word-rev.in .word:nth-child(1)  { transition-delay: 0.02s; }
+    .word-rev.in .word:nth-child(2)  { transition-delay: 0.04s; }
+    .word-rev.in .word:nth-child(3)  { transition-delay: 0.06s; }
+    .word-rev.in .word:nth-child(4)  { transition-delay: 0.08s; }
+    .word-rev.in .word:nth-child(5)  { transition-delay: 0.10s; }
+    .word-rev.in .word:nth-child(6)  { transition-delay: 0.12s; }
+    .word-rev.in .word:nth-child(7)  { transition-delay: 0.14s; }
+    .word-rev.in .word:nth-child(8)  { transition-delay: 0.16s; }
+    .word-rev.in .word:nth-child(9)  { transition-delay: 0.18s; }
+    .word-rev.in .word:nth-child(10) { transition-delay: 0.20s; }
+    .word-rev.in .word:nth-child(11) { transition-delay: 0.22s; }
+    .word-rev.in .word:nth-child(12) { transition-delay: 0.24s; }
+    .word-rev.in .word:nth-child(13) { transition-delay: 0.26s; }
+    .word-rev.in .word:nth-child(14) { transition-delay: 0.28s; }
+    .word-rev.in .word:nth-child(15) { transition-delay: 0.30s; }
+    .word-rev.in .word:nth-child(16) { transition-delay: 0.32s; }
+    .word-rev.in .word:nth-child(17) { transition-delay: 0.34s; }
+    .word-rev.in .word:nth-child(18) { transition-delay: 0.36s; }
+    .word-rev.in .word:nth-child(19) { transition-delay: 0.38s; }
+    .word-rev.in .word:nth-child(20) { transition-delay: 0.40s; }
+    .word-rev.in .word:nth-child(21) { transition-delay: 0.42s; }
+    .word-rev.in .word:nth-child(22) { transition-delay: 0.44s; }
+    .word-rev.in .word:nth-child(23) { transition-delay: 0.46s; }
+    .word-rev.in .word:nth-child(24) { transition-delay: 0.48s; }
+    .word-rev.in .word:nth-child(25) { transition-delay: 0.50s; }
 
     /* ─────────────── RESPONSIVE ─────────────── */
     @media (max-width: 1060px) {
@@ -687,7 +735,6 @@
 </head>
 <body>
 
-  <div class="noise" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
 
   <!-- ═══ HEADER ═══ -->
@@ -736,12 +783,11 @@
             <stop offset="60%"  stop-color="#a84e25"/>
             <stop offset="100%" stop-color="#8a3f1e"/>
           </linearGradient>
-          <filter id="copper-shadow" x="-8%" y="-8%" width="125%" height="125%">
-            <feDropShadow dx="-8" dy="12" stdDeviation="18" flood-color="rgba(0,0,0,0.7)"/>
-            <feDropShadow dx="0"  dy="4"  stdDeviation="6"  flood-color="rgba(196,98,45,0.25)"/>
+          <filter id="copper-shadow" x="-6%" y="-6%" width="115%" height="115%">
+            <feDropShadow dx="-6" dy="10" stdDeviation="14" flood-color="rgba(0,0,0,0.6)"/>
           </filter>
-          <filter id="bronze-shadow" x="-5%" y="-5%" width="120%" height="120%">
-            <feDropShadow dx="-6" dy="10" stdDeviation="12" flood-color="rgba(0,0,0,0.55)"/>
+          <filter id="bronze-shadow" x="-4%" y="-4%" width="110%" height="110%">
+            <feDropShadow dx="-5" dy="8" stdDeviation="10" flood-color="rgba(0,0,0,0.5)"/>
           </filter>
           <linearGradient id="left-fade" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%"  stop-color="#111111" stop-opacity="1"/>
@@ -798,26 +844,26 @@
           <polyline points="240,720 240,760 280,760" fill="none" stroke="#e8883a" stroke-width="2" stroke-linecap="square"/>
           <polyline points="510,760 550,760 550,720" fill="none" stroke="#e8883a" stroke-width="2" stroke-linecap="square"/>
 
-          <!-- Dimension lines -->
-          <line x1="572" y1="180" x2="572" y2="760" stroke="rgba(228,136,58,0.55)" stroke-width="0.75"/>
-          <line x1="562" y1="180" x2="582" y2="180" stroke="rgba(228,136,58,0.7)"  stroke-width="1"/>
-          <line x1="562" y1="760" x2="582" y2="760" stroke="rgba(228,136,58,0.7)"  stroke-width="1"/>
-          <line x1="562" y1="470" x2="582" y2="470" stroke="rgba(228,136,58,0.45)" stroke-width="0.75"/>
-          <text x="588" y="475" font-family="DM Mono,monospace" font-size="8" fill="rgba(228,136,58,0.65)" letter-spacing="0.5">+14.80</text>
-          <text x="588" y="185" font-family="DM Mono,monospace" font-size="8" fill="rgba(228,136,58,0.65)" letter-spacing="0.5">+05.40</text>
-          <text x="588" y="765" font-family="DM Mono,monospace" font-size="8" fill="rgba(228,136,58,0.65)" letter-spacing="0.5">+24.00</text>
+          <!-- Dimension lines — cool accent for technical contrast -->
+          <line x1="572" y1="180" x2="572" y2="760" stroke="rgba(74,107,122,0.6)" stroke-width="0.75"/>
+          <line x1="562" y1="180" x2="582" y2="180" stroke="rgba(74,107,122,0.75)"  stroke-width="1"/>
+          <line x1="562" y1="760" x2="582" y2="760" stroke="rgba(74,107,122,0.75)"  stroke-width="1"/>
+          <line x1="562" y1="470" x2="582" y2="470" stroke="rgba(74,107,122,0.5)" stroke-width="0.75"/>
+          <text x="588" y="475" font-family="DM Mono,monospace" font-size="8" fill="rgba(74,107,122,0.7)" letter-spacing="0.5">+14.80</text>
+          <text x="588" y="185" font-family="DM Mono,monospace" font-size="8" fill="rgba(74,107,122,0.7)" letter-spacing="0.5">+05.40</text>
+          <text x="588" y="765" font-family="DM Mono,monospace" font-size="8" fill="rgba(74,107,122,0.7)" letter-spacing="0.5">+24.00</text>
 
-          <line x1="240" y1="162" x2="550" y2="162" stroke="rgba(228,136,58,0.45)" stroke-width="0.75"/>
-          <line x1="240" y1="155" x2="240" y2="169" stroke="rgba(228,136,58,0.6)"  stroke-width="1"/>
-          <line x1="550" y1="155" x2="550" y2="169" stroke="rgba(228,136,58,0.6)"  stroke-width="1"/>
-          <line x1="395" y1="155" x2="395" y2="169" stroke="rgba(228,136,58,0.4)"  stroke-width="0.75"/>
-          <text x="282" y="154" font-family="DM Mono,monospace" font-size="8" fill="rgba(228,136,58,0.55)" letter-spacing="0.5">3100mm</text>
+          <line x1="240" y1="162" x2="550" y2="162" stroke="rgba(74,107,122,0.5)" stroke-width="0.75"/>
+          <line x1="240" y1="155" x2="240" y2="169" stroke="rgba(74,107,122,0.65)"  stroke-width="1"/>
+          <line x1="550" y1="155" x2="550" y2="169" stroke="rgba(74,107,122,0.65)"  stroke-width="1"/>
+          <line x1="395" y1="155" x2="395" y2="169" stroke="rgba(74,107,122,0.45)"  stroke-width="0.75"/>
+          <text x="282" y="154" font-family="DM Mono,monospace" font-size="8" fill="rgba(74,107,122,0.6)" letter-spacing="0.5">3100mm</text>
 
           <!-- Detail callout -->
-          <circle cx="395" cy="380" r="28" fill="none" stroke="rgba(228,136,58,0.5)" stroke-width="0.75" stroke-dasharray="3.5,2.5"/>
-          <line x1="423" y1="352" x2="460" y2="320" stroke="rgba(228,136,58,0.45)" stroke-width="0.75"/>
-          <text x="464" y="316" font-family="DM Mono,monospace" font-size="8"   fill="rgba(228,136,58,0.7)" letter-spacing="0.5">DET.03</text>
-          <text x="464" y="327" font-family="DM Mono,monospace" font-size="7.5" fill="rgba(228,136,58,0.5)" letter-spacing="0.5">COPPER CLADd.</text>
+          <circle cx="395" cy="380" r="28" fill="none" stroke="rgba(74,107,122,0.55)" stroke-width="0.75" stroke-dasharray="3.5,2.5"/>
+          <line x1="423" y1="352" x2="460" y2="320" stroke="rgba(74,107,122,0.5)" stroke-width="0.75"/>
+          <text x="464" y="316" font-family="DM Mono,monospace" font-size="8"   fill="rgba(74,107,122,0.75)" letter-spacing="0.5">DET.03</text>
+          <text x="464" y="327" font-family="DM Mono,monospace" font-size="7.5" fill="rgba(74,107,122,0.55)" letter-spacing="0.5">COPPER CLADd.</text>
         </g>
 
         <!-- Annotation layer -->
@@ -1176,6 +1222,64 @@
       window.addEventListener('load', triggerPanels);
       setTimeout(triggerPanels, 100);
     }
+
+    // ── Word-level stagger reveal ──
+    function splitWords(el) {
+      const text = el.textContent.trim();
+      const words = text.split(/\s+/);
+      el.innerHTML = '';
+      words.forEach(word => {
+        const span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = word + '\u00A0';
+        el.appendChild(span);
+      });
+      el.classList.add('word-rev');
+    }
+    document.querySelectorAll('.about-statement, .exec-closing p, .approach-pull p').forEach(splitWords);
+    const wordObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.word-rev').forEach(el => wordObs.observe(el));
+
+    // ── Parallax + scroll-linked watermark ──
+    const heroDrawing = document.querySelector('.hero-drawing');
+    const heroGlow = document.querySelector('.hero-glow');
+    const aboutGhost = document.querySelector('.about-ghost');
+    const contactWm = document.querySelector('.contact-wm');
+    const heroSection = document.getElementById('hero');
+    const contactSection = document.getElementById('contact');
+
+    function onScroll() {
+      const y = window.scrollY;
+      const heroH = heroSection.offsetHeight;
+
+      if (y < heroH && heroDrawing) {
+        heroDrawing.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+      }
+      if (y < heroH && heroGlow) {
+        heroGlow.style.transform = 'translateY(' + (y * 0.05) + 'px)';
+      }
+      if (aboutGhost) {
+        const aboutRect = document.getElementById('about').getBoundingClientRect();
+        const aboutProgress = 1 - (aboutRect.top / window.innerHeight);
+        if (aboutProgress > 0 && aboutProgress < 2) {
+          aboutGhost.style.transform = 'translate(-50%, -50%) translateY(' + (aboutProgress * 30) + 'px)';
+        }
+      }
+      if (contactWm && contactSection) {
+        const contactRect = contactSection.getBoundingClientRect();
+        const contactProgress = 1 - (contactRect.top / window.innerHeight);
+        if (contactProgress > 0 && contactProgress < 1.5) {
+          const opacity = 0.04 + Math.min(contactProgress * 0.05, 0.07);
+          contactWm.style.opacity = opacity;
+          const scale = 0.98 + Math.min(contactProgress * 0.03, 0.04);
+          contactWm.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
     // ── Language toggle ──
     document.querySelectorAll('.lang [data-lang]').forEach(el => {
