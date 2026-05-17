@@ -578,7 +578,7 @@
       line-height: 1;
       pointer-events: none; user-select: none;
       z-index: 0; white-space: nowrap;
-      color: rgba(196,98,45,0.065);
+      color: rgba(196,98,45,0.075);
     }
     .contact-content { position: relative; z-index: 1; }
     .contact-cols {
@@ -1241,6 +1241,17 @@
       el.classList.add('word-rev');
     }
     document.querySelectorAll('.about-statement, .exec-closing p, .approach-pull p').forEach(splitWords);
+    // Re-wrap Oris Group in brand gradient after splitting
+    const aboutWords = document.querySelectorAll('.about-statement .word');
+    aboutWords.forEach((w, i) => {
+      if (w.textContent.trim() === 'Oris' && aboutWords[i+1] && aboutWords[i+1].textContent.trim() === 'Group') {
+        const brand = document.createElement('span');
+        brand.className = 'brand';
+        w.before(brand);
+        brand.appendChild(w);
+        brand.appendChild(aboutWords[i+1]);
+      }
+    });
     const wordObs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
     }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
