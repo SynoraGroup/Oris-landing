@@ -441,6 +441,160 @@
       color: var(--text-p);
     }
 
+    /* ─────────────── MATERIAL BAND ─────────────── */
+    .mat-band {
+      position: relative;
+      width: 100vw;
+      left: 50%; right: 50%;
+      margin-left: -50vw; margin-right: -50vw;
+      height: 280px;
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 100px;
+    }
+    .mat-panel {
+      flex: 1;
+      position: relative;
+      transition: flex 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      overflow: hidden;
+      cursor: default;
+      margin: 0 -8px;
+      box-shadow: -12px 0 24px rgba(0,0,0,0.45), 12px 0 24px rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .mat-panel:nth-child(1) { transform: translateY(16px) scaleY(0.92); z-index: 2; }
+    .mat-panel:nth-child(2) { transform: translateY(-10px) scaleY(0.96); z-index: 3; }
+    .mat-panel:nth-child(3) { transform: translateY(6px) scaleY(0.94); z-index: 4; }
+    .mat-panel:nth-child(4) { transform: translateY(-14px) scaleY(0.98); z-index: 5; }
+    .mat-panel:nth-child(5) { transform: translateY(0px) scaleY(0.93); z-index: 4; }
+    .mat-panel:nth-child(6) { transform: translateY(-8px) scaleY(0.97); z-index: 3; }
+    .mat-panel:nth-child(7) { transform: translateY(12px) scaleY(0.95); z-index: 2; }
+    .mat-panel::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(17,17,17,0.7) 0%, transparent 55%);
+      z-index: 1;
+    }
+    .mat-panel-label {
+      position: absolute;
+      bottom: 28px; left: 28px;
+      font-family: var(--fm); font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(240,236,227,0.55);
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      white-space: nowrap;
+    }
+    .mat-panel:hover .mat-panel-label {
+      opacity: 1; transform: translateY(0);
+    }
+    .mat-panel:hover {
+      flex: 1.8;
+      transform: translateY(-4px) scaleY(1) !important;
+      z-index: 10;
+    }
+
+    /* Panel 1: Deep charcoal — fine diagonal weave */
+    .mat-p1 {
+      background: linear-gradient(180deg, #1a1814 0%, #252219 100%);
+    }
+    .mat-p1::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent, transparent 3px,
+        rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 4px
+      );
+      animation: matDrift 30s linear infinite;
+    }
+
+    /* Panel 2: Warm bronze — horizontal strata */
+    .mat-p2 {
+      background: linear-gradient(180deg, #3d2a1a 0%, #2a2018 100%);
+    }
+    .mat-p2::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 8px,
+        rgba(196,98,45,0.04) 8px, rgba(196,98,45,0.04) 9px
+      );
+      animation: matDrift 24s linear infinite reverse;
+    }
+
+    /* Panel 3: Copper — fine stipple */
+    .mat-p3 {
+      background: linear-gradient(180deg, #c4622d 0%, #a84e25 100%);
+    }
+    .mat-p3::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.15) 0.5px, transparent 0.5px);
+      background-size: 6px 6px;
+      animation: matDrift 20s linear infinite;
+    }
+    .mat-p3 .mat-panel-label { color: rgba(26,20,16,0.7); }
+
+    /* Panel 4: Dark bronze — crosshatch (hero panel) */
+    .mat-p4 {
+      background: linear-gradient(180deg, #4a3530 0%, #3a2820 100%);
+    }
+    .mat-p4::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.08) 5px, rgba(0,0,0,0.08) 6px),
+        repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 6px);
+      animation: matDrift 28s linear infinite reverse;
+    }
+
+    /* Panel 5: Charcoal-brown — vertical grain */
+    .mat-p5 {
+      background: linear-gradient(180deg, #252219 0%, #1a1814 100%);
+    }
+    .mat-p5::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent, transparent 2px,
+        rgba(255,255,255,0.01) 2px, rgba(255,255,255,0.01) 3px
+      );
+      animation: matDrift 32s linear infinite;
+    }
+
+    /* Panel 6: Weathered steel — coarse diagonal */
+    .mat-p6 {
+      background: linear-gradient(180deg, #5a4030 0%, #3a2820 100%);
+    }
+    .mat-p6::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -30deg,
+        transparent, transparent 6px,
+        rgba(0,0,0,0.1) 6px, rgba(0,0,0,0.1) 8px,
+        transparent 8px, transparent 14px,
+        rgba(196,98,45,0.06) 14px, rgba(196,98,45,0.06) 15px
+      );
+      animation: matDrift 26s linear infinite reverse;
+    }
+
+    /* Panel 7: Warm mineral — fine horizontal */
+    .mat-p7 {
+      background: linear-gradient(180deg, #7a6050 0%, #5a4538 100%);
+    }
+    .mat-p7::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        2deg,
+        transparent, transparent 4px,
+        rgba(60,40,25,0.08) 4px, rgba(60,40,25,0.08) 5px,
+        transparent 5px, transparent 9px,
+        rgba(200,150,100,0.06) 9px, rgba(200,150,100,0.06) 10px
+      );
+      animation: matDrift 22s linear infinite;
+    }
+
     /* Atmospheric bridges between sections */
     .atmo-bridge {
       width: 100%;
@@ -1040,6 +1194,17 @@
     </div>
   </section>
 
+  <!-- Material band — abstract architectural surfaces -->
+  <div class="mat-band" aria-hidden="true">
+    <div class="mat-panel mat-p1"><span class="mat-panel-label">Charcoal</span></div>
+    <div class="mat-panel mat-p2"><span class="mat-panel-label">Bronze</span></div>
+    <div class="mat-panel mat-p3"><span class="mat-panel-label">Copper</span></div>
+    <div class="mat-panel mat-p4"><span class="mat-panel-label">Oxide</span></div>
+    <div class="mat-panel mat-p5"><span class="mat-panel-label">Carbon</span></div>
+    <div class="mat-panel mat-p6"><span class="mat-panel-label">Steel</span></div>
+    <div class="mat-panel mat-p7"><span class="mat-panel-label">Mineral</span></div>
+  </div>
+
   <div class="atmo-bridge" aria-hidden="true"></div>
 
   <!-- ═══ APPROACH ═══ -->
@@ -1096,9 +1261,9 @@
       </div>
       <div class="contact-cols">
         <div>
-          <h3 class="contact-heading rev" data-i18n="contact_heading">Oris работи избирателно по проекти, при които изпълнението, координацията и техническата яснота имат значение.</h3>
+          <h3 class="contact-heading rev" data-i18n="contact_heading">Нека обсъдим<br>проекта Ви.</h3>
           <p class="contact-body rev d1" data-i18n="contact_body">
-            Работим с архитекти, инвеститори и изпълнители по съвременни реализации, изискващи надеждна координация, силно техническо изпълнение и дългосрочно мислене.
+            Oris работи избирателно по проекти, при които изпълнението, координацията и техническата яснота имат значение. Работим с архитекти, инвеститори и изпълнители по съвременни реализации, изискващи надеждна координация, силно техническо изпълнение и дългосрочно мислене.
           </p>
           <div class="contact-cta rev d2" style="margin-top: 36px;">
             <a href="mailto:office@orisgroup.eu" class="cta-btn"><span data-i18n="contact_cta">Започни разговор</span> <span class="arr">→</span></a>
@@ -1206,8 +1371,8 @@
 
         contact_idx: "05",
         contact_title: "Контакт",
-        contact_heading: "Oris работи избирателно по проекти, при които изпълнението, координацията и техническата яснота имат значение.",
-        contact_body: "Работим с архитекти, инвеститори и изпълнители по съвременни реализации, изискващи надеждна координация, силно техническо изпълнение и дългосрочно мислене.",
+        contact_heading: "Нека обсъдим проекта Ви.",
+        contact_body: "Oris работи избирателно по проекти, при които изпълнението, координацията и техническата яснота имат значение. Работим с архитекти, инвеститори и изпълнители по съвременни реализации, изискващи надеждна координация, силно техническо изпълнение и дългосрочно мислене.",
         contact_cta: "Започни разговор",
         contact_email_label: "Имейл",
         contact_email_value: "office@orisgroup.eu",
@@ -1291,8 +1456,8 @@
 
         contact_idx: "05",
         contact_title: "Contact",
-        contact_heading: "Oris works selectively on projects where execution, coordination and technical clarity truly matter.",
-        contact_body: "We work with architects, investors and contractors on contemporary projects requiring reliable coordination, strong technical execution and long-term thinking.",
+        contact_heading: "Let's discuss your project.",
+        contact_body: "Oris works selectively on projects where execution, coordination and technical clarity truly matter. We work with architects, investors and contractors on contemporary projects requiring reliable coordination, strong technical execution and long-term thinking.",
         contact_cta: "Start a conversation",
         contact_email_label: "Email",
         contact_email_value: "office@orisgroup.eu",
