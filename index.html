@@ -20,7 +20,7 @@
   <meta property="og:locale" content="bg_BG">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════
        ORIS GROUP — Dark Museum Redesign
@@ -51,7 +51,7 @@
       --text-dim:  rgba(224,220,212,0.35);
 
       --nav-h: 76px;
-      --f0: 'DM Sans', sans-serif;
+      --f0: 'Inter', sans-serif;
       --fm: 'DM Mono', monospace;
     }
 
@@ -815,11 +815,10 @@
         background: linear-gradient(to right, rgba(17,17,17,0.98) 0%, rgba(17,17,17,0.90) 45%, rgba(17,17,17,0.60) 65%, rgba(17,17,17,0.20) 82%, transparent 100%);
       }
       .hero-h1 em {
-        background: none;
-        -webkit-background-clip: unset;
-        -webkit-text-fill-color: unset;
-        background-clip: unset;
-        color: var(--copper);
+        background: var(--copper-grad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         white-space: nowrap;
         word-break: keep-all;
       }
